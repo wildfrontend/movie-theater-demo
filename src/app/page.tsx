@@ -1,11 +1,12 @@
+
+import SearchSection from '@/components/movies/search';
 import React from 'react';
 
-import HeroSection from '@/components/movies/hero';
 
 const Page: React.FC = () => {
   return (
     <>
-      <HeroSection />
+      <SearchSection/>
     </>
   );
 };
