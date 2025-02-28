@@ -7,7 +7,7 @@ const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       <AppBar position="fixed">
-        <Toolbar style={{ justifyContent: 'space-between', height: "64px" }}>
+        <Toolbar style={{ justifyContent: 'space-between', height: '64px' }}>
           <Typography component="div" variant="h6">
             Movie Datebase
           </Typography>

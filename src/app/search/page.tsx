@@ -1,12 +1,7 @@
 import React from 'react';
 
-
 const Page: React.FC = () => {
-  return (
-    <>
-      Search
-    </>
-  );
+  return <>Search</>;
 };
 
 export default Page;
