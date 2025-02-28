@@ -22,7 +22,7 @@ const SearchSection = () => {
             歡迎！
           </Typography>
           <Typography variant="h6" color="textSecondary">
-            上百萬部電影、電視節目和人物在等你探索。立即瀏覽吧！
+            上百萬部電影在等你探索。立即瀏覽吧！
           </Typography>
         </Box>
         {/* 搜尋框 */}
