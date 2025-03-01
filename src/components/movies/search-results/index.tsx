@@ -1,7 +1,7 @@
 'use client';
 
-import { Container, Grid2, List } from '@mui/material';
-import React from 'react';
+import { Container, Grid2 } from '@mui/material';
+import React, { useRef } from 'react';
 
 import { useFetchSearchMovies } from '@/apis/movies';
 import useSearhMoviesQueyParams from '@/hooks/movies/search';
@@ -16,6 +16,7 @@ const SearchResults: React.FC = () => {
       language: search ? 'zh-TW' : undefined,
     },
   });
+  let listCount = 0;
   return (
     <Container maxWidth="lg">
       <Grid2 py={2} container spacing={{ xs: 2, md: 3 }} columns={12}>
@@ -23,7 +24,7 @@ const SearchResults: React.FC = () => {
           return group.data.results.map((item) => {
             return (
               <Grid2 key={item.id} size={{ xs: 12 }}>
-                <MovieListItem movie={item} />
+                <MovieListItem movie={item} listCount={listCount++} />
               </Grid2>
             );
           });

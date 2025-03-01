@@ -7,6 +7,7 @@ const useSearhMoviesQueyParams = () => {
   const { urlSearchParams, setQueryParams } = useQueryParams<{
     search: string;
   }>();
+
   const search = useMemo(
     () =>
       z.coerce
