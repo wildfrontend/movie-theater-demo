@@ -24,7 +24,7 @@ const SearchResults: React.FC = () => {
         {data?.pages?.map((group, i) => {
           return group.data.results.map((item) => {
             return (
-              <Grid2 key={item.id} size={{ xs: 6, sm: 12 }}>
+              <Grid2 key={item.id} size={{ xs: 6, sm: 4, md: 3 }}>
                 <MovieListItem listCount={listCount++} movie={item} />
               </Grid2>
             );

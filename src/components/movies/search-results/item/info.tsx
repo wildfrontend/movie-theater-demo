@@ -10,11 +10,9 @@ import {
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 
 import type { SearchMovieItem } from '@/types/apis/movies';
-import { generateMovieHerf } from '@/utils/link';
 
 import MovieScore from './score';
 
@@ -27,14 +25,16 @@ const MovieInfo: React.FC<{
 }> = ({ movie, isOpen, onClose }) => {
   return (
     <Dialog
+      disableEnforceFocus
       onClose={onClose}
       open={isOpen}
+      scroll="body"
       slotProps={{
-        paper: { sx: { maxWidth: '480px', maxHeight: '540px' } },
+        paper: { sx: { maxWidth: '875px', minHeight: '70vh' } },
       }}
     >
       <CardMedia
-        sx={{ width: '100%', aspectRatio: 400 / 225, position: 'relative' }}
+        sx={{ width: '100%', aspectRatio: 780 / 439, position: 'relative' }}
       >
         <Image
           alt={movie.title}
@@ -45,7 +45,7 @@ const MovieInfo: React.FC<{
           }}
           src={
             movie.backdrop_path
-              ? `https://image.tmdb.org/t/p/w400${movie.backdrop_path}`
+              ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}`
               : defaultImg
           }
           style={{ objectFit: 'cover' }}
@@ -86,13 +86,8 @@ const MovieInfo: React.FC<{
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: 'end' }}>
-        <Button
-          size="small"
-          variant="contained"
-          LinkComponent={Link}
-          href={generateMovieHerf(movie.id)}
-        >
-          詳情
+        <Button size="small" variant="contained">
+          加入收藏
         </Button>
         <Button color="error" onClick={onClose} size="small">
           關閉

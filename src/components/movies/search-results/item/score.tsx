@@ -1,11 +1,7 @@
 'use client';
 
-import {
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import React, { ComponentProps } from 'react';
-
 
 const getScoreColor = (score: number) => {
   if (!score || Number.isNaN(score)) return 'textSecondary';
