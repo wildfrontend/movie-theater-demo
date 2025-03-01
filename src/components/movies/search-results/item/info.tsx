@@ -10,9 +10,11 @@ import {
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 import type { SearchMovieItem } from '@/types/apis/movies';
+import { generateMovieHerf } from '@/utils/link';
 
 import MovieScore from './score';
 
@@ -28,7 +30,7 @@ const MovieInfo: React.FC<{
       onClose={onClose}
       open={isOpen}
       slotProps={{
-        paper: { sx: { width: '100%', height: '100%', maxHeight: '480px' } },
+        paper: { sx: { maxWidth: '480px', maxHeight: '540px' } },
       }}
     >
       <CardMedia
@@ -84,7 +86,12 @@ const MovieInfo: React.FC<{
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: 'end' }}>
-        <Button size="small" variant="contained">
+        <Button
+          size="small"
+          variant="contained"
+          LinkComponent={Link}
+          href={generateMovieHerf(movie.id)}
+        >
           詳情
         </Button>
         <Button color="error" onClick={onClose} size="small">

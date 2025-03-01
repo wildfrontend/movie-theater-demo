@@ -23,11 +23,13 @@ const MobileMovieListItem: React.FC<{
   const [isOpen, setIsOpen] = useState(false);
   const theme = useTheme();
   const isNotMobile = useMediaQuery(theme.breakpoints.up('sm'));
+
   useEffect(() => {
     if (isNotMobile) {
       setIsOpen(false);
     }
   }, [isNotMobile]);
+
   return (
     <>
       <Card>
@@ -37,6 +39,7 @@ const MobileMovieListItem: React.FC<{
           >
             <Image
               alt={movie.title}
+              priority={listCount < 5}
               fill
               loading={listCount && listCount < 5 ? 'eager' : 'lazy'} //
               onError={(e) => {
