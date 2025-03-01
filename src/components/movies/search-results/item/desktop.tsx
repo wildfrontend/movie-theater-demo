@@ -1,12 +1,9 @@
 'use client';
 
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import {
   Card,
-  CardActions,
   CardContent,
   CardMedia,
-  IconButton,
   Stack,
   Typography,
 } from '@mui/material';
@@ -15,31 +12,13 @@ import React from 'react';
 
 import type { SearchMovieItem } from '@/types/apis/movies';
 
+import MovieScore from './score';
+
 const defaultImg = 'https://fakeimg.pl/154x220/?text=Oops';
 
-const getScoreColor = (score: number) => {
-  if (!score || Number.isNaN(score)) return 'textSecondary';
-  if (score < 5) return 'error';
-  if (score < 7) return 'warning';
-  return 'success';
-};
-
-const MovieScore: React.FC<{ score?: number }> = ({ score }) => {
-  const formattedScore =
-    score && !Number.isNaN(score) ? score.toFixed(1) : 'NA';
-  return (
-    <Stack alignItems="center" direction="row" spacing={1}>
-      <Typography>評分 :</Typography>
-      <Typography color={getScoreColor(score ?? 0)} fontWeight="700">
-        {formattedScore}
-      </Typography>
-    </Stack>
-  );
-};
-
-const MovieListItem: React.FC<{
+const DesktopMovieListItem: React.FC<{
   movie: SearchMovieItem;
-  listCount?: number;
+  listCount: number;
 }> = ({ movie, listCount }) => {
   return (
     <Card
@@ -100,7 +79,7 @@ const MovieListItem: React.FC<{
           spacing={1}
         >
           <MovieScore score={movie.vote_average} />
-          <Stack direction="row" alignItems="center" spacing={1}>
+          <Stack alignItems="center" direction="row" spacing={1}>
             <Typography color="textSecondary">
               發行日期: {movie.release_date === '' ? 'NA' : movie.release_date}
             </Typography>
@@ -111,4 +90,4 @@ const MovieListItem: React.FC<{
   );
 };
 
-export default MovieListItem;
+export default DesktopMovieListItem;

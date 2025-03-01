@@ -1,5 +1,7 @@
 'use client';
 
+
+
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 const theme = responsiveFontSizes(
@@ -42,7 +44,7 @@ const theme = responsiveFontSizes(
           root: ({ ownerState, theme }) => {
             return {
               '&:last-child': {
-                paddingBottom: "16px",
+                paddingBottom: '16px',
               },
             };
           },

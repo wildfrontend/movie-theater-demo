@@ -20,4 +20,5 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withPigment(nextConfig);
+// pigment not work with sx breakpoints in mui
+export default (nextConfig);
