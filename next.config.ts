@@ -15,10 +15,11 @@ const nextConfig: NextConfig = {
       },
       {
         hostname: 'fakeimg.pl',
-      }
+      },
+      { hostname: 'media.themoviedb.org' },
     ],
   },
 };
 
 // pigment not work with sx breakpoints in mui
-export default (nextConfig);
+export default nextConfig;

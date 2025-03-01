@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import { movieDetailQueryOptions } from '@/apis/movies/query-options';
 import type { SearchMovieItem } from '@/types/apis/movies';
 
-import MovieInfo from './info';
+import MovieInfo from '../info';
 
 const defaultImg = 'https://fakeimg.pl/154x220/?text=Oops';
 

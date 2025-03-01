@@ -58,7 +58,7 @@ export const useFetchMovieCredits = ({
   enabled,
 }: {
   movieId: PathParamId;
-  enabled: boolean;
+  enabled?: boolean;
 }) => {
   const query = useQuery(movieCreditQueryOptions(movieId, enabled));
   return query;

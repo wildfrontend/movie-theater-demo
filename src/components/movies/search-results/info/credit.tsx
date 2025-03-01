@@ -1,0 +1,65 @@
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Stack,
+  Typography,
+} from '@mui/material';
+import Image from 'next/image';
+import { useMemo } from 'react';
+
+import { useFetchMovieCredits } from '@/apis/movies/api';
+
+import MovieCreditsSkeleton from './skeleton';
+import { ScrollBox } from './styles';
+
+const defaultImg = 'https://fakeimg.pl/138x175/?text=Oops';
+
+const MovieCredits: React.FC<{ movieId: number }> = ({ movieId }) => {
+  const { data, isFetching } = useFetchMovieCredits({ movieId });
+  const cast = useMemo(() => data?.data?.cast, [data]);
+  if (isFetching) {
+    return <MovieCreditsSkeleton />;
+  }
+  return (
+    <ScrollBox>
+      <Stack
+        direction="row"
+        spacing={1}
+        sx={{
+          width: 'max-content',
+          paddingBottom: '8px',
+        }}
+      >
+        {cast?.map((item) => {
+          return (
+            <Card key={item.cast_id}>
+              <CardMedia sx={{ width: '138px', height: '175px' }}>
+                <Image
+                  alt={item.name}
+                  height={175}
+                  src={
+                    item.profile_path
+                      ? `https://media.themoviedb.org/t/p/w138_and_h175_face${item.profile_path}`
+                      : defaultImg
+                  }
+                  unoptimized
+                  width={138}
+                />
+              </CardMedia>
+              <CardContent
+                sx={{ padding: '4px', paddingBottom: '4px!important' }}
+              >
+                <Typography textAlign="center" variant="h6">
+                  {item.name}
+                </Typography>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </Stack>
+    </ScrollBox>
+  );
+};
+
+export default MovieCredits;

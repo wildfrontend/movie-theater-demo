@@ -1,11 +1,9 @@
-import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
+import { queryOptions } from '@tanstack/react-query';
 
 import {
   GetMovieCreditsResponse,
   GetMovieDetailResponse,
   GetMovieReviewsResponse,
-  GetSearchMoviesQueryParams,
-  GetSearchMoviesResponse,
 } from '@/types/apis/movies';
 import axios from '@/utils/axios';
 
@@ -43,21 +41,19 @@ export const movieCreditQueryOptions = (
     enabled,
   });
 
-
-  export const movieReviewsQueryOptions = (
-    movieId: PathParamId,
-    enabled?: boolean
-  ) =>
-    queryOptions({
-        queryKey: ['movies', 'movie', 'reviews', movieId],
-        queryFn: ({ signal }) => {
-          return axios.get<GetMovieReviewsResponse>(`/movie/${movieId}/reviews`, {
-            signal,
-            params: {
-              language: 'zh-TW',
-            },
-          });
+export const movieReviewsQueryOptions = (
+  movieId: PathParamId,
+  enabled?: boolean
+) =>
+  queryOptions({
+    queryKey: ['movies', 'movie', 'reviews', movieId],
+    queryFn: ({ signal }) => {
+      return axios.get<GetMovieReviewsResponse>(`/movie/${movieId}/reviews`, {
+        signal,
+        params: {
+          language: 'zh-TW',
         },
-        enabled,
       });
-  
+    },
+    enabled,
+  });
