@@ -37,6 +37,17 @@ const theme = responsiveFontSizes(
           },
         },
       },
+      MuiCardContent: {
+        styleOverrides: {
+          root: ({ ownerState, theme }) => {
+            return {
+              '&:last-child': {
+                paddingBottom: "16px",
+              },
+            };
+          },
+        },
+      },
     },
   })
 );

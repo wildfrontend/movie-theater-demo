@@ -1,6 +1,15 @@
 'use client';
 
-import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  IconButton,
+  Stack,
+  Typography,
+} from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
 
@@ -20,12 +29,8 @@ const MovieScore: React.FC<{ score?: number }> = ({ score }) => {
     score && !Number.isNaN(score) ? score.toFixed(1) : 'NA';
   return (
     <Stack alignItems="center" direction="row" spacing={1}>
-      <Typography variant="caption">評分 :</Typography>
-      <Typography
-        color={getScoreColor(score ?? 0)}
-        fontWeight="700"
-        variant="caption"
-      >
+      <Typography>評分 :</Typography>
+      <Typography color={getScoreColor(score ?? 0)} fontWeight="700">
         {formattedScore}
       </Typography>
     </Stack>
@@ -95,9 +100,11 @@ const MovieListItem: React.FC<{
           spacing={1}
         >
           <MovieScore score={movie.vote_average} />
-          <Typography color="textSecondary" variant="caption">
-            發行日期: {movie.release_date === '' ? 'NA' : movie.release_date}
-          </Typography>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Typography color="textSecondary">
+              發行日期: {movie.release_date === '' ? 'NA' : movie.release_date}
+            </Typography>
+          </Stack>
         </Stack>
       </CardContent>
     </Card>
