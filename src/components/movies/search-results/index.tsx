@@ -1,6 +1,6 @@
 'use client';
 
-import { Container, Grid2 } from '@mui/material';
+import { Button, Container, Grid2 } from '@mui/material';
 import React from 'react';
 
 import { useFetchSearchMovies } from '@/apis/movies';
@@ -10,7 +10,13 @@ import MovieListItem from './item';
 
 const SearchResults: React.FC = () => {
   const { search } = useSearhMoviesQueyParams();
-  const { data, isFetching } = useFetchSearchMovies({
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+  } = useFetchSearchMovies({
     params: {
       query: search,
       language: search ? 'zh-TW' : undefined,
@@ -29,6 +35,19 @@ const SearchResults: React.FC = () => {
             );
           });
         })}
+        <div>
+          <Button
+            disabled={!hasNextPage || isFetchingNextPage}
+            onClick={() => hasNextPage && fetchNextPage()}
+          >
+            {isFetchingNextPage
+              ? 'Loading more...'
+              : hasNextPage
+                ? 'Load More'
+                : 'Nothing more to load'}
+          </Button>
+        </div>
+        <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
       </Grid2>
     </Container>
   );

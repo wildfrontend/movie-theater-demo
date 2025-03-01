@@ -13,21 +13,24 @@ export const useFetchSearchMovies = ({
 }: Partial<{ params: GetSearchMoviesQueryParams }>) => {
   const query = useInfiniteQuery({
     queryKey: ['movies', 'search', params],
-    queryFn: ({ signal }) => {
+    queryFn: ({ signal, pageParam }) => {
       return axios.get<GetSearchMoviesResponse>('/search/movie', {
         signal,
-        params,
+        params: {
+          ...params,
+          page: pageParam,
+        },
       });
     },
-    initialPageParam: 0,
+    initialPageParam: 1,
     getPreviousPageParam: (firstPage) => {
       const value = firstPage.data.page - 1;
-      return value < 0 ? 0 : value;
+      return value < 0 ? undefined : value;
     },
     getNextPageParam: (lastPage) => {
       const totalPage = lastPage.data.total_pages;
       const value = lastPage.data.page + 1;
-      return value < totalPage ? value : totalPage;
+      return value <= totalPage ? value : undefined;
     },
   });
   return query;
