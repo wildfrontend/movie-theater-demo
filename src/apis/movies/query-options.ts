@@ -1,0 +1,63 @@
+import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
+
+import {
+  GetMovieCreditsResponse,
+  GetMovieDetailResponse,
+  GetMovieReviewsResponse,
+  GetSearchMoviesQueryParams,
+  GetSearchMoviesResponse,
+} from '@/types/apis/movies';
+import axios from '@/utils/axios';
+
+export const movieDetailQueryOptions = (
+  movieId: PathParamId,
+  enabled?: boolean
+) =>
+  queryOptions({
+    queryKey: ['movies', 'movie', movieId],
+    queryFn: ({ signal }) => {
+      return axios.get<GetMovieDetailResponse>(`/movie/${movieId}`, {
+        signal,
+        params: {
+          language: 'zh-TW',
+        },
+      });
+    },
+    enabled,
+  });
+
+export const movieCreditQueryOptions = (
+  movieId: PathParamId,
+  enabled?: boolean
+) =>
+  queryOptions({
+    queryKey: ['movies', 'movie', 'credits', movieId],
+    queryFn: ({ signal }) => {
+      return axios.get<GetMovieCreditsResponse>(`/movie/${movieId}/credits`, {
+        signal,
+        params: {
+          language: 'zh-TW',
+        },
+      });
+    },
+    enabled,
+  });
+
+
+  export const movieReviewsQueryOptions = (
+    movieId: PathParamId,
+    enabled?: boolean
+  ) =>
+    queryOptions({
+        queryKey: ['movies', 'movie', 'reviews', movieId],
+        queryFn: ({ signal }) => {
+          return axios.get<GetMovieReviewsResponse>(`/movie/${movieId}/reviews`, {
+            signal,
+            params: {
+              language: 'zh-TW',
+            },
+          });
+        },
+        enabled,
+      });
+  

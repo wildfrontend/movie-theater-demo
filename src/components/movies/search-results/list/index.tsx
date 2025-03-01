@@ -3,7 +3,7 @@
 import { Button, Container, Grid2 } from '@mui/material';
 import React from 'react';
 
-import { useFetchSearchMovies } from '@/apis/movies';
+import { useFetchSearchMovies } from '@/apis/movies/api';
 import useSearhMoviesQueyParams from '@/hooks/movies/search';
 
 import MovieListItem from '../item';
