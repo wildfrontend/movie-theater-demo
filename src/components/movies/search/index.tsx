@@ -1,7 +1,8 @@
 import { Box, Container, Typography } from '@mui/material';
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import SearchInput from './input';
+import SearchInputSkeleton from './skeleton';
 
 const SearchSection: React.FC = () => {
   return (
@@ -16,7 +17,9 @@ const SearchSection: React.FC = () => {
             上百萬部電影在等你探索。立即瀏覽吧！
           </Typography>
         </Box>
-        <SearchInput />
+        <Suspense fallback={<SearchInputSkeleton />}>
+          <SearchInput />
+        </Suspense>
       </Container>
     </Box>
   );

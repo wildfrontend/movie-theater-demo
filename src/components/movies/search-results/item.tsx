@@ -19,12 +19,12 @@ const MovieScore: React.FC<{ score?: number }> = ({ score }) => {
   const formattedScore =
     score && !Number.isNaN(score) ? score.toFixed(1) : 'NA';
   return (
-    <Stack direction="row" alignItems="center" spacing={1}>
+    <Stack alignItems="center" direction="row" spacing={1}>
       <Typography variant="caption">評分 :</Typography>
       <Typography
-        variant="caption"
-        fontWeight="700"
         color={getScoreColor(score ?? 0)}
+        fontWeight="700"
+        variant="caption"
       >
         {formattedScore}
       </Typography>
@@ -45,10 +45,9 @@ const MovieListItem: React.FC<{
     >
       <CardMedia sx={{ width: 154, height: 220 }}>
         <Image
-          loading={listCount && listCount < 3 ? 'eager' : 'lazy'} //
-          unoptimized
-          width={154}
+          alt={movie.title}
           height={220}
+          loading={listCount && listCount < 3 ? 'eager' : 'lazy'} //
           onError={(e) => {
             e.currentTarget.src = defaultImg;
           }}
@@ -57,7 +56,8 @@ const MovieListItem: React.FC<{
               ? `https://image.tmdb.org/t/p/w154${movie.poster_path}`
               : defaultImg
           }
-          alt={movie.title}
+          unoptimized
+          width={154}
         />
       </CardMedia>
       <CardContent
@@ -69,13 +69,12 @@ const MovieListItem: React.FC<{
         }}
       >
         <Stack spacing="8px">
-          <Typography minHeight="28px" variant="h5" component="div">
+          <Typography component="div" minHeight="28px" variant="h5">
             {movie.title}
           </Typography>
           <Typography
-            variant="caption"
-            component="p"
             color="textSecondary"
+            component="p"
             sx={{
               display: '-webkit-box',
               WebkitBoxOrient: 'vertical',
@@ -84,18 +83,19 @@ const MovieListItem: React.FC<{
               WebkitLineClamp: 5,
               height: '100px',
             }}
+            variant="caption"
           >
             {movie.overview}
           </Typography>
         </Stack>
         <Stack
-          mt="auto"
           direction="row"
-          spacing={1}
           justifyContent="space-between"
+          mt="auto"
+          spacing={1}
         >
           <MovieScore score={movie.vote_average} />
-          <Typography variant="caption" color="textSecondary">
+          <Typography color="textSecondary" variant="caption">
             發行日期: {movie.release_date === '' ? 'NA' : movie.release_date}
           </Typography>
         </Stack>
