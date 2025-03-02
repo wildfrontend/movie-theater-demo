@@ -1,9 +1,5 @@
-import {
-  Skeleton,
-  Stack,
-} from '@mui/material';
+import { Skeleton, Stack } from '@mui/material';
 import { times } from 'lodash-es';
-
 
 import { ScrollBox } from './styles';
 

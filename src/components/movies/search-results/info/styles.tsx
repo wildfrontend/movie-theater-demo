@@ -1,7 +1,4 @@
-import {
-  Box,
-  styled,
-} from '@mui/material';
+import { Box, styled } from '@mui/material';
 
 export const ScrollBox = styled(Box)(({ theme }) => ({
   width: '100%',

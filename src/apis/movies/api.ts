@@ -11,6 +11,7 @@ import {
   movieDetailQueryOptions,
   movieReviewsQueryOptions,
 } from './query-options';
+import { useMemo } from 'react';
 
 // https://developer.themoviedb.org/reference/search-movie
 
@@ -38,39 +39,22 @@ export const useFetchSearchMovies = ({
       const value = lastPage.data.page + 1;
       return value <= totalPage ? value : undefined;
     },
+    enabled: !!params?.query,
   });
   return query;
 };
 
-export const useFetchMovie = ({
-  movieId,
-  enabled,
-}: {
-  movieId: PathParamId;
-  enabled: boolean;
-}) => {
-  const query = useQuery(movieDetailQueryOptions(movieId, enabled));
-  return query;
+export const useFetchMovie = (movieId?: PathParamId) => {
+  const query = useQuery(movieDetailQueryOptions(movieId));
+  return { ...query, detail: query.data?.data };
 };
 
-export const useFetchMovieCredits = ({
-  movieId,
-  enabled,
-}: {
-  movieId: PathParamId;
-  enabled?: boolean;
-}) => {
-  const query = useQuery(movieCreditQueryOptions(movieId, enabled));
-  return query;
+export const useFetchMovieCredits = (movieId?: PathParamId) => {
+  const query = useQuery(movieCreditQueryOptions(movieId));
+  return { ...query, cast: query.data?.data.cast, crew: query.data?.data.crew };
 };
 
-export const useFetchMovieReviews = ({
-  movieId,
-  enabled,
-}: {
-  movieId: PathParamId;
-  enabled: boolean;
-}) => {
-  const query = useQuery(movieReviewsQueryOptions(movieId, enabled));
+export const useFetchMovieReviews = (movieId?: PathParamId) => {
+  const query = useQuery(movieReviewsQueryOptions(movieId));
   return query;
 };

@@ -7,11 +7,8 @@ import {
 } from '@/types/apis/movies';
 import axios from '@/utils/axios';
 
-export const movieDetailQueryOptions = (
-  movieId: PathParamId,
-  enabled?: boolean
-) =>
-  queryOptions({
+export const movieDetailQueryOptions = (movieId?: PathParamId) => {
+  return queryOptions({
     queryKey: ['movies', 'movie', movieId],
     queryFn: ({ signal }) => {
       return axios.get<GetMovieDetailResponse>(`/movie/${movieId}`, {
@@ -21,13 +18,11 @@ export const movieDetailQueryOptions = (
         },
       });
     },
-    enabled,
+    enabled: !!movieId,
   });
+};
 
-export const movieCreditQueryOptions = (
-  movieId: PathParamId,
-  enabled?: boolean
-) =>
+export const movieCreditQueryOptions = (movieId?: PathParamId) =>
   queryOptions({
     queryKey: ['movies', 'movie', 'credits', movieId],
     queryFn: ({ signal }) => {
@@ -38,13 +33,10 @@ export const movieCreditQueryOptions = (
         },
       });
     },
-    enabled,
+    enabled: !!movieId,
   });
 
-export const movieReviewsQueryOptions = (
-  movieId: PathParamId,
-  enabled?: boolean
-) =>
+export const movieReviewsQueryOptions = (movieId?: PathParamId) =>
   queryOptions({
     queryKey: ['movies', 'movie', 'reviews', movieId],
     queryFn: ({ signal }) => {
@@ -55,5 +47,5 @@ export const movieReviewsQueryOptions = (
         },
       });
     },
-    enabled,
+    enabled: !!movieId,
   });

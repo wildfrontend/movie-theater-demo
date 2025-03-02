@@ -1,23 +1,17 @@
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
-import { useMemo } from 'react';
 
 import { useFetchMovieCredits } from '@/apis/movies/api';
+import useMovieIdQueyParams from '@/hooks/movies/item';
 
 import MovieCreditsSkeleton from './skeleton';
 import { ScrollBox } from './styles';
 
-const defaultImg = 'https://fakeimg.pl/138x175/?text=Oops';
+const defaultImg = 'https://fakeimg.pl/138x175';
 
-const MovieCredits: React.FC<{ movieId: number }> = ({ movieId }) => {
-  const { data, isFetching } = useFetchMovieCredits({ movieId });
-  const cast = useMemo(() => data?.data?.cast, [data]);
+const MovieCredits: React.FC = () => {
+  const { movieId } = useMovieIdQueyParams();
+  const { cast, isFetching } = useFetchMovieCredits(movieId);
   if (isFetching) {
     return <MovieCreditsSkeleton />;
   }
@@ -33,7 +27,7 @@ const MovieCredits: React.FC<{ movieId: number }> = ({ movieId }) => {
       >
         {cast?.map((item) => {
           return (
-            <Card key={item.cast_id}>
+            <Card key={item.cast_id} sx={{ width: '138px' }}>
               <CardMedia sx={{ width: '138px', height: '175px' }}>
                 <Image
                   alt={item.name}
@@ -48,11 +42,13 @@ const MovieCredits: React.FC<{ movieId: number }> = ({ movieId }) => {
                 />
               </CardMedia>
               <CardContent
-                sx={{ padding: '4px', paddingBottom: '4px!important' }}
+                sx={{
+                  padding: '4px',
+                  paddingBottom: '4px!important',
+                  whiteSpace: 'initial',
+                }}
               >
-                <Typography textAlign="center" variant="h6">
-                  {item.name}
-                </Typography>
+                <Typography variant="caption">{item.name}</Typography>
               </CardContent>
             </Card>
           );
