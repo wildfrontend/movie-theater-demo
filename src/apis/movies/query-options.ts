@@ -13,22 +13,23 @@ import axios from '@/utils/axios';
 export const popularMoviesQueryOptions = () => {
   return infiniteQueryOptions({
     queryKey: ['movies', 'popular'],
-    queryFn: ({ signal, pageParam }) => {
-      return axios.get<GetPopularMoviesResponse>('/movie/popular', {
+    queryFn: async ({ signal, pageParam }) => {
+      const res = await axios.get<GetPopularMoviesResponse>('/movie/popular', {
         signal,
         params: {
           page: pageParam,
         },
       });
+      return res.data;
     },
     initialPageParam: 1,
     getPreviousPageParam: (firstPage) => {
-      const value = firstPage.data.page - 1;
+      const value = firstPage.page - 1;
       return value < 0 ? undefined : value;
     },
     getNextPageParam: (lastPage) => {
-      const totalPage = lastPage.data.total_pages;
-      const value = lastPage.data.page + 1;
+      const totalPage = lastPage.total_pages;
+      const value = lastPage.page + 1;
       return value <= totalPage ? value : undefined;
     },
   });
@@ -39,24 +40,26 @@ export const searchMoviesQueryOptions = ({
   enabled,
 }: Partial<{ params: GetSearchMoviesQueryParams; enabled?: boolean }>) => {
   return infiniteQueryOptions({
-    queryKey: ['movies', 'search', params],
-    queryFn: ({ signal, pageParam }) => {
-      return axios.get<GetSearchMoviesResponse>('/search/movie', {
+    queryKey: ['movies', 'search', params?.query],
+    queryFn: async ({ signal, pageParam }) => {
+      const res = await axios.get<GetSearchMoviesResponse>('/search/movie', {
         signal,
         params: {
           ...params,
+          language: 'zh-TW',
           page: pageParam,
         },
       });
+      return res.data;
     },
     initialPageParam: 1,
     getPreviousPageParam: (firstPage) => {
-      const value = firstPage.data.page - 1;
+      const value = firstPage.page - 1;
       return value < 0 ? undefined : value;
     },
     getNextPageParam: (lastPage) => {
-      const totalPage = lastPage.data.total_pages;
-      const value = lastPage.data.page + 1;
+      const totalPage = lastPage.total_pages;
+      const value = lastPage.page + 1;
       return value <= totalPage ? value : undefined;
     },
     enabled: enabled ?? !!params?.query,
@@ -66,13 +69,14 @@ export const searchMoviesQueryOptions = ({
 export const movieDetailQueryOptions = (movieId?: PathParamId) => {
   return queryOptions({
     queryKey: ['movies', 'movie', movieId],
-    queryFn: ({ signal }) => {
-      return axios.get<GetMovieDetailResponse>(`/movie/${movieId}`, {
+    queryFn: async ({ signal }) => {
+      const res = await axios.get<GetMovieDetailResponse>(`/movie/${movieId}`, {
         signal,
         params: {
           language: 'zh-TW',
         },
       });
+      return res.data;
     },
     enabled: !!movieId,
   });
@@ -81,13 +85,17 @@ export const movieDetailQueryOptions = (movieId?: PathParamId) => {
 export const movieCreditQueryOptions = (movieId?: PathParamId) =>
   queryOptions({
     queryKey: ['movies', 'movie', 'credits', movieId],
-    queryFn: ({ signal }) => {
-      return axios.get<GetMovieCreditsResponse>(`/movie/${movieId}/credits`, {
-        signal,
-        params: {
-          language: 'zh-TW',
-        },
-      });
+    queryFn: async ({ signal }) => {
+      const res = await axios.get<GetMovieCreditsResponse>(
+        `/movie/${movieId}/credits`,
+        {
+          signal,
+          params: {
+            language: 'zh-TW',
+          },
+        }
+      );
+      return res.data;
     },
     enabled: !!movieId,
   });
@@ -95,13 +103,17 @@ export const movieCreditQueryOptions = (movieId?: PathParamId) =>
 export const movieReviewsQueryOptions = (movieId?: PathParamId) =>
   queryOptions({
     queryKey: ['movies', 'movie', 'reviews', movieId],
-    queryFn: ({ signal }) => {
-      return axios.get<GetMovieReviewsResponse>(`/movie/${movieId}/reviews`, {
-        signal,
-        params: {
-          language: 'zh-TW',
-        },
-      });
+    queryFn: async ({ signal }) => {
+      const res = await axios.get<GetMovieReviewsResponse>(
+        `/movie/${movieId}/reviews`,
+        {
+          signal,
+          params: {
+            language: 'zh-TW',
+          },
+        }
+      );
+      return res.data;
     },
     enabled: !!movieId,
   });

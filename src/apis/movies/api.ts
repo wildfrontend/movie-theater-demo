@@ -1,8 +1,6 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
-import type {
-  GetSearchMoviesQueryParams,
-} from '@/types/apis/movies';
+import type { GetSearchMoviesQueryParams } from '@/types/apis/movies';
 
 import {
   movieCreditQueryOptions,
@@ -29,15 +27,15 @@ export const useFetchSearchMovies = ({
 
 export const useFetchMovie = (movieId?: PathParamId) => {
   const query = useQuery(movieDetailQueryOptions(movieId));
-  return { ...query, detail: query.data?.data };
+  return { ...query, detail: query.data };
 };
 
 export const useFetchMovieCredits = (movieId?: PathParamId) => {
   const query = useQuery(movieCreditQueryOptions(movieId));
-  return { ...query, cast: query.data?.data.cast, crew: query.data?.data.crew };
+  return { ...query, cast: query.data?.cast, crew: query.data?.crew };
 };
 
 export const useFetchMovieReviews = (movieId?: PathParamId) => {
   const query = useQuery(movieReviewsQueryOptions(movieId));
-  return { ...query, reviews: query.data?.data.results };
+  return { ...query, reviews: query.data?.results };
 };

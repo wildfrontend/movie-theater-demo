@@ -9,7 +9,7 @@ import MuiThemeProvider from '@/components/theme';
 
 export const metadata: Metadata = {
   title: 'The Movie Datebase',
-  description: 'Inter demo',
+  description: 'Interview demo',
 };
 
 const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {

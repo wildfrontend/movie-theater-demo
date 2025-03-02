@@ -20,7 +20,7 @@ const PopularMovies: React.FC = () => {
   return (
     <Grid2 columns={12} container py={2} spacing={{ xs: 2, md: 3 }}>
       {data?.pages?.map((group, i) => {
-        return group.data.results.map((item) => {
+        return group?.results.map((item) => {
           return (
             <Grid2 key={item.id} size={{ xs: 6, sm: 4, md: 3 }}>
               <MovieListItem listCount={listCount++} movie={item} />
