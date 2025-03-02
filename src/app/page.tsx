@@ -17,10 +17,10 @@ const Page: React.FC<{
     movieId?: string;
   }>;
 }> = async ({ searchParams }) => {
-  const { search, movieId } = await searchParams;
+  const { search } = await searchParams;
   const queryClient = getQueryClient();
 
-  if (search && !movieId) {
+  if (search) {
     await queryClient.prefetchInfiniteQuery(
       searchMoviesQueryOptions({ params: { query: search } })
     );
