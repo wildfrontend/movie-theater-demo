@@ -1,4 +1,10 @@
-import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Stack,
+  Typography,
+} from '@mui/material';
 import Image from 'next/image';
 
 import { useFetchMovieCredits } from '@/apis/movies/api';
@@ -9,11 +15,24 @@ import { ScrollBox } from './styles';
 
 const defaultImg = 'https://fakeimg.pl/138x175';
 
-const MovieCredits: React.FC = () => {
+export const useMovieCredits = () => {
   const { movieId } = useMovieIdQueyParams();
-  const { cast, isFetching } = useFetchMovieCredits(movieId);
+  const data = useFetchMovieCredits(movieId);
+
+  return data;
+};
+
+const MovieCredits: React.FC = () => {
+  const { cast, isFetching } = useMovieCredits();
   if (isFetching) {
     return <MovieCreditsSkeleton />;
+  }
+  if ((cast?.length ?? 0) === 0) {
+    return (
+      <Stack>
+        <Typography variant="body1">什麼!! 竟然沒有演員?</Typography>
+      </Stack>
+    );
   }
   return (
     <ScrollBox>

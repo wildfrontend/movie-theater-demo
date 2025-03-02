@@ -4,18 +4,21 @@ import { Button, Container, Grid2 } from '@mui/material';
 import React from 'react';
 
 import { useFetchSearchMovies } from '@/apis/movies/api';
+import useMovieIdQueyParams from '@/hooks/movies/item';
 import useSearhMoviesQueyParams from '@/hooks/movies/search';
 
 import MovieListItem from '../item';
 
 const SearchResults: React.FC = () => {
   const { search } = useSearhMoviesQueyParams();
+  const { movieId } = useMovieIdQueyParams();
   const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } =
     useFetchSearchMovies({
       params: {
         query: search,
         language: search ? 'zh-TW' : undefined,
       },
+      enabled: !!!movieId,
     });
   let listCount = 1;
   return (

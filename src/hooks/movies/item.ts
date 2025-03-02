@@ -18,7 +18,7 @@ const useMovieIdQueyParams = () => {
         .parse(urlSearchParams.get('movieId')),
     [urlSearchParams]
   );
-  console.log(movieId)
+  console.log(movieId);
   const setMovieId = (movieId: PathParamId) => {
     setQueryParams({ movieId });
   };

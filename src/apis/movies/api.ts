@@ -11,13 +11,13 @@ import {
   movieDetailQueryOptions,
   movieReviewsQueryOptions,
 } from './query-options';
-import { useMemo } from 'react';
 
 // https://developer.themoviedb.org/reference/search-movie
 
 export const useFetchSearchMovies = ({
   params,
-}: Partial<{ params: GetSearchMoviesQueryParams }>) => {
+  enabled,
+}: Partial<{ params: GetSearchMoviesQueryParams; enabled?: boolean }>) => {
   const query = useInfiniteQuery({
     queryKey: ['movies', 'search', params],
     queryFn: ({ signal, pageParam }) => {
@@ -39,7 +39,7 @@ export const useFetchSearchMovies = ({
       const value = lastPage.data.page + 1;
       return value <= totalPage ? value : undefined;
     },
-    enabled: !!params?.query,
+    enabled: enabled ?? !!params?.query,
   });
   return query;
 };
@@ -56,5 +56,5 @@ export const useFetchMovieCredits = (movieId?: PathParamId) => {
 
 export const useFetchMovieReviews = (movieId?: PathParamId) => {
   const query = useQuery(movieReviewsQueryOptions(movieId));
-  return query;
+  return { ...query, reviews: query.data?.data.results };
 };
