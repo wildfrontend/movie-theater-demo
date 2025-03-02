@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react';
 
 import MovieInfo from '@/components/movies/info/main';
-import SearchResults from '@/components/movies/results/list';
 import SearchSection from '@/components/movies/search';
+import SearchResults from '@/components/movies/movies/results';
 
 const Page: React.FC = () => {
   return (
