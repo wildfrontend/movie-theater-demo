@@ -1,49 +1,39 @@
-'use client';
-
-import { Container, Stack, Typography } from '@mui/material';
-import { Grid2 } from '@mui/material';
-import React from 'react';
+import { Container, Grid2, Stack, Typography } from '@mui/material';
 import { InView } from 'react-intersection-observer';
 
-import { useFetchSearchMovies } from '@/apis/movies/api';
-import useMovieIdQueyParams from '@/hooks/movies/item';
-import useSearhMoviesQueyParams from '@/hooks/movies/search';
+import { useFetchPopularMovies } from '@/apis/movies/api';
 
 import MovieListItem from '../item';
+import MoviesEmpty from '../list/empty';
 import SearchFailed from '../list/error';
 import { LoadMoreSkeleton } from '../list/skeleton';
-import ResultsEmpty from '../popluar';
 
-const SearchResults: React.FC = () => {
-  const { search } = useSearhMoviesQueyParams();
-  const { movieId } = useMovieIdQueyParams();
+const ResultsEmpty: React.FC = () => {
   const {
     data,
     fetchNextPage,
     hasNextPage,
+    isFetching,
     isFetchingNextPage,
     isFetched,
-    error,
-  } = useFetchSearchMovies({
-    params: {
-      query: search,
-    },
-    enabled: !!search && !movieId,
-  });
 
+    error,
+  } = useFetchPopularMovies();
   let listCount = 1;
 
   if (error) {
     return <SearchFailed error={error} />;
   }
-  if (!isFetched) {
-    return <ResultsEmpty />;
+
+  if (data?.pages.length === 0) {
+    return <MoviesEmpty />;
   }
+
   return (
     <Container maxWidth="lg">
       <Stack pt="32px" spacing="16px">
         <Typography fontWeight="bold" variant="h2">
-          搜尋結果
+          時下熱門電影
         </Typography>
         <Grid2 columns={12} container py={2} spacing={{ xs: 2, md: 3 }}>
           {data?.pages?.map((group, i) => {
@@ -66,15 +56,15 @@ const SearchResults: React.FC = () => {
             />
           )}
           {isFetchingNextPage && <LoadMoreSkeleton />}
+          {!hasNextPage && (
+            <Typography component="span" fontWeight="bold" variant="h4">
+              已經顯示所有結果
+            </Typography>
+          )}
         </Grid2>
-        {!hasNextPage && (
-          <Typography component="span" fontWeight="bold" variant="h4">
-            已經顯示所有結果
-          </Typography>
-        )}
       </Stack>
     </Container>
   );
 };
 
-export default SearchResults;
+export default ResultsEmpty;
