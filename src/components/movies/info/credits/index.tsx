@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 
 import { useFetchMovieCredits } from '@/apis/movies/api';

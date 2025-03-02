@@ -2,7 +2,6 @@
 
 import CloseIcon from '@mui/icons-material/Close';
 import {
-  Chip,
   Dialog,
   DialogContent,
   IconButton,
@@ -11,7 +10,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { useFetchMovie } from '@/apis/movies/api';
 import useMovieIdQueyParams from '@/hooks/movies/item';
@@ -19,8 +18,11 @@ import useMovieIdQueyParams from '@/hooks/movies/item';
 import MovieCredits from '../credits';
 import MovieReviews from '../reviews';
 import MovieAttribute from './attributes';
+import MovieGenres from './genres';
 import MovieHeadline from './headline';
+import MovieOverview from './overview';
 import MovieStatus from './status';
+import MovieTitle from './title';
 
 export const useMovieDetail = () => {
   const { movieId } = useMovieIdQueyParams();
@@ -30,18 +32,16 @@ export const useMovieDetail = () => {
 
 const MovieInfo: React.FC<{}> = ({}) => {
   const { movieId, removeMovieId } = useMovieIdQueyParams();
-  const { detail } = useMovieDetail();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const onClose = () => {
     removeMovieId();
   };
-  const isOpen = useMemo(() => !!movieId, [movieId]);
   return (
     <Dialog
       fullScreen={isMobile}
       onClose={onClose}
-      open={isOpen}
+      open={!!movieId}
       scroll="body"
       slotProps={{
         paper: {
@@ -69,20 +69,14 @@ const MovieInfo: React.FC<{}> = ({}) => {
       <MovieHeadline />
       <DialogContent>
         <Stack spacing="16px">
-          <Typography fontWeight="bold" gutterBottom variant="h4">
-            {detail?.title}
-          </Typography>
+          <MovieTitle />
           <MovieAttribute />
-          <Stack direction="row" spacing="8px">
-            {detail?.genres.map((genre) => (
-              <Chip key={genre.id} label={genre.name} />
-            ))}
-          </Stack>
+          <MovieGenres />
           <MovieStatus />
           <Typography fontWeight="bold" gutterBottom variant="h5">
             概要
           </Typography>
-          <Typography variant="body1">{detail?.overview}</Typography>
+          <MovieOverview />
           <Typography fontWeight="bold" variant="h5">
             演出
           </Typography>
