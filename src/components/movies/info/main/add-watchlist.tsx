@@ -32,7 +32,7 @@ const AddWatchlist: React.FC = () => {
       <Button
         loading={isAccountStatusFetching || mutate.isPending}
         onClick={() => {
-          mutate.mutate({ watchlist: !isWatchlist });
+          mutate.mutate({ movieId, watchlist: !isWatchlist });
         }}
         size="small"
         startIcon={isWatchlist ? <BookmarkIcon /> : <BookmarkBorderIcon />}
