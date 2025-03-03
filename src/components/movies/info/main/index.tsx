@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-import { useFetchMovie } from '@/apis/movies/api';
 import useMovieIdQueyParams from '@/hooks/movies/item';
 
 import MovieCredits from '../credits';
@@ -24,35 +23,20 @@ import MovieOverview from './overview';
 import MovieStatus from './status';
 import MovieTitle from './title';
 
-export const useMovieDetail = () => {
-  const { movieId } = useMovieIdQueyParams();
-  const movie = useFetchMovie(movieId);
-  return movie;
-};
-
 const MovieInfo: React.FC<{}> = ({}) => {
   const { movieId, removeMovieId } = useMovieIdQueyParams();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const onClose = () => {
     removeMovieId();
   };
   return (
     <Dialog
       fullScreen={isMobile}
+      maxWidth="md"
       onClose={onClose}
       open={!!movieId}
       scroll="body"
-      slotProps={{
-        paper: {
-          sx: {
-            width: '100%',
-            maxWidth: {
-              md: '875px',
-            },
-          },
-        },
-      }}
     >
       <IconButton
         onClick={onClose}

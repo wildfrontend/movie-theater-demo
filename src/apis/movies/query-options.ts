@@ -1,9 +1,11 @@
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
 
 import {
+  GetMovieAccountStatusResponse,
   GetMovieCreditsResponse,
   GetMovieDetailResponse,
   GetMovieReviewsResponse,
+  GetMovieVideosResponse,
   GetPopularMoviesResponse,
   GetSearchMoviesQueryParams,
   GetSearchMoviesResponse,
@@ -111,6 +113,36 @@ export const movieReviewsQueryOptions = (movieId?: PathParamId) =>
           params: {
             language: 'zh-TW',
           },
+        }
+      );
+      return res.data;
+    },
+    enabled: !!movieId,
+  });
+
+export const movieVideosQueryOptions = (movieId?: PathParamId) =>
+  queryOptions({
+    queryKey: ['movies', 'movie', 'videos', movieId],
+    queryFn: async ({ signal }) => {
+      const res = await axios.get<GetMovieVideosResponse>(
+        `/movie/${movieId}/videos`,
+        {
+          signal,
+        }
+      );
+      return res.data;
+    },
+    enabled: !!movieId,
+  });
+
+export const movieAccountStatesQueryOptions = (movieId?: PathParamId) =>
+  queryOptions({
+    queryKey: ['movies', 'movie', 'status', movieId],
+    queryFn: async ({ signal }) => {
+      const res = await axios.get<GetMovieAccountStatusResponse>(
+        `/movie/${movieId}/account_states`,
+        {
+          signal,
         }
       );
       return res.data;

@@ -1,8 +1,9 @@
 'use client';
 
-import { red } from '@mui/material/colors';
+import { buttonClasses } from '@mui/material';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
+console.log(buttonClasses.disabled);
 const theme = responsiveFontSizes(
   createTheme({
     palette: {
@@ -46,7 +47,6 @@ const theme = responsiveFontSizes(
         defaultProps: {
           disableRipple: true,
         },
-      
       },
       MuiButtonBase: {
         defaultProps: {

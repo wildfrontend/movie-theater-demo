@@ -1,55 +1,74 @@
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import { Box, Button, Stack } from '@mui/material';
+import { Box, Skeleton, Stack } from '@mui/material';
 import Image from 'next/image';
 import { useState } from 'react';
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 
-import { useMovieDetail } from '.';
+import {
+  useFetchMovie,
+  useFetchMovieVideos,
+} from '@/apis/movies/api';
+import useMovieIdQueyParams from '@/hooks/movies/item';
+
+import AddWatchlist from './add-watchlist';
 
 const defaultImg = 'https://fakeimg.pl/400x225?text=Oops';
 
-const MovieHeadline: React.FC = () => {
-  const { detail } = useMovieDetail();
+const MovieBackdrop: React.FC<{ alt?: string; url?: string | null }> = ({
+  alt,
+  url,
+}) => {
   const [imageError, setImageError] = useState(false);
   return (
+    <Image
+      alt={alt ?? 'noalt'}
+      fill
+      loading="eager"
+      onError={(e) => {
+        setImageError(true);
+      }}
+      src={imageError ? defaultImg : `https://image.tmdb.org/t/p/w780${url}`}
+      style={{ objectFit: 'cover' }}
+      unoptimized
+    />
+  );
+};
+
+const MovieHeadline: React.FC = () => {
+  const { movieId } = useMovieIdQueyParams();
+  const { detail, isFetching } = useFetchMovie(movieId);
+
+  const { trailer, isFetching: isTrailerFetching } =
+    useFetchMovieVideos(movieId);
+
+  if (isFetching || isTrailerFetching) {
+    return <Skeleton sx={{ aspectRatio: '780 / 439', transform: 'initial' }} />;
+  }
+
+  return (
     <Box sx={{ aspectRatio: '780 / 439', position: 'relative' }}>
-      <Image
-        alt={detail?.title ?? 'noalt'}
-        fill
-        loading="eager"
-        onError={(e) => {
-          setImageError(true);
-        }}
-        src={
-          imageError || !detail?.backdrop_path
-            ? defaultImg
-            : `https://image.tmdb.org/t/p/w780${detail?.backdrop_path}`
-        }
-        style={{ objectFit: 'cover' }}
-        unoptimized
-      />
+      {trailer ? (
+        <LiteYouTubeEmbed
+          id={trailer?.key}
+          poster="maxresdefault"
+          title={trailer?.name}
+        />
+      ) : (
+        <MovieBackdrop alt={detail?.title} url={detail?.backdrop_path} />
+      )}
       <Stack
+        direction="row"
+        justifyContent="end"
+        p="16px"
+        spacing="8px"
         sx={{
           position: 'absolute',
           bottom: '0px',
           left: '0px',
           width: '100%',
-          height: '48px',
         }}
-        spacing="8px"
-        direction="row"
-        padding="8px"
       >
-        <Button startIcon={<PlayArrowIcon />} size="small" variant="contained" color="primary">
-          播放預告片
-        </Button>
-        <Button
-          startIcon={<BookmarkBorderIcon />}
-          size="small"
-          variant="outlined"
-        >
-          加入收藏
-        </Button>
+        <AddWatchlist />
       </Stack>
     </Box>
   );
