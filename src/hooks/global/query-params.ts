@@ -1,39 +1,48 @@
 import { NavigateOptions } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { usePathname } from 'next/navigation';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useMemo } from 'react';
 
 function useQueryParams<T = {}>() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const urlSearchParams = new URLSearchParams(
-    Array.from(searchParams.entries())
+
+  const urlSearchParams = useMemo(() => {
+    return new URLSearchParams(Array.from(searchParams.entries()));
+  }, [searchParams]);
+
+  const setQueryParams = useCallback(
+    (params: Partial<T>, options?: NavigateOptions) => {
+      const newSearchParams = new URLSearchParams(urlSearchParams);
+
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          newSearchParams.set(key, String(value));
+        } else {
+          newSearchParams.delete(key);
+        }
+      });
+
+      const search = newSearchParams.toString();
+      const query = search ? `?${search}` : '';
+
+      router.replace(`${pathname}${query}`, { ...options });
+    },
+    [router, pathname, urlSearchParams]
   );
 
-  function setQueryParams(params: Partial<T>, options?: NavigateOptions) {
-    Object.entries(params).forEach(([key, value]) => {
-      if (value) {
-        urlSearchParams.set(key, String(value));
-      } else {
-        urlSearchParams.delete(key);
-      }
-    });
+  const removeQueryParams = useCallback(
+    (key: string, options?: NavigateOptions) => {
+      const newSearchParams = new URLSearchParams(urlSearchParams);
+      newSearchParams.delete(key);
 
-    const search = urlSearchParams.toString();
-    const query = search ? `?${search}` : '';
+      const search = newSearchParams.toString();
+      const query = search ? `?${search}` : '';
 
-    // consider add scroll = false to imporve ux
-    router.replace(`${pathname}${query}`, options);
-  }
-
-  function removeQueryParams(key: string, options?: NavigateOptions) {
-    urlSearchParams.delete(key);
-    const search = urlSearchParams.toString();
-    const query = search ? `?${search}` : '';
-
-    // consider add scroll = false to imporve ux
-    router.replace(`${pathname}${query}`, options);
-  }
+      router.replace(`${pathname}${query}`, { ...options });
+    },
+    [router, pathname, urlSearchParams]
+  );
 
   return { urlSearchParams, setQueryParams, removeQueryParams };
 }

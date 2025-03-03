@@ -1,10 +1,11 @@
 import { Grid2, Typography } from '@mui/material';
 
-import { useMovieDetail } from '.';
+import { useFetchMovie } from '@/apis/movies/api';
+import useMovieIdQueyParams from '@/hooks/movies/item';
+
 import { useMovieCredits } from '../credits';
 
 const getScoreColor = (score: number) => {
-  if (!score || Number.isNaN(score)) return 'textSecondary';
   if (score < 5) return 'error';
   if (score < 7) return 'warning';
   return 'success';
@@ -20,12 +21,15 @@ const numberToUS = (money?: number) => {
 };
 
 const MovieStatus: React.FC = () => {
-  const { detail } = useMovieDetail();
-  const { crew, cast } = useMovieCredits();
+  const { movieId } = useMovieIdQueyParams();
+  const { detail } = useFetchMovie(movieId);
+  const { crew } = useMovieCredits();
+
   const formattedScore =
     detail?.vote_average && !Number.isNaN(detail?.vote_average)
       ? detail?.vote_average.toFixed(1)
       : 'NA';
+
   return (
     <Grid2 container spacing="8px">
       <Grid2 size={{ xs: 6, sm: 4 }}>

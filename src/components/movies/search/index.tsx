@@ -6,7 +6,7 @@ import SearchInputSkeleton from './skeleton';
 
 const SearchSection: React.FC = () => {
   return (
-    <Box sx={{  padding: '64px 0' }}>
+    <Box sx={{ padding: '64px 0' }}>
       <Container maxWidth="lg">
         <Box mb={3} textAlign="center">
           <Typography component="h2" gutterBottom variant="h4">

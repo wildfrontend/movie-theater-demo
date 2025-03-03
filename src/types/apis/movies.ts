@@ -171,3 +171,41 @@ export interface GetMovieReviewsResponse {
   total_pages: number;
   total_results: number;
 }
+
+/**
+ * ANCHOR Movie Videos
+ */
+
+export enum VideoType {
+  trailer = 'Trailer',
+  teaser = 'Teaser',
+  clip = 'Clip',
+  featurette = 'Featurette',
+}
+
+export enum VideoSiteType {}
+
+export interface VideoItem {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  site: VideoSiteType;
+  size: number;
+  type: VideoType;
+  official: boolean;
+  published_at: string;
+  id: string;
+}
+
+export interface GetMovieVideosResponse {
+  id: number;
+  results: VideoItem[];
+}
+
+export interface GetMovieAccountStatusResponse {
+  id: number;
+  favorite: boolean;
+  rated: boolean;
+  watchlist: boolean;
+}
