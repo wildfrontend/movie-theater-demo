@@ -1,4 +1,6 @@
-import { Box } from '@mui/material';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { Box, Button, Stack } from '@mui/material';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -26,6 +28,29 @@ const MovieHeadline: React.FC = () => {
         style={{ objectFit: 'cover' }}
         unoptimized
       />
+      <Stack
+        sx={{
+          position: 'absolute',
+          bottom: '0px',
+          left: '0px',
+          width: '100%',
+          height: '48px',
+        }}
+        spacing="8px"
+        direction="row"
+        padding="8px"
+      >
+        <Button startIcon={<PlayArrowIcon />} size="small" variant="contained" color="primary">
+          播放預告片
+        </Button>
+        <Button
+          startIcon={<BookmarkBorderIcon />}
+          size="small"
+          variant="outlined"
+        >
+          加入收藏
+        </Button>
+      </Stack>
     </Box>
   );
 };

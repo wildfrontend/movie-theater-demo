@@ -1,9 +1,38 @@
 'use client';
 
+import { red } from '@mui/material/colors';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 const theme = responsiveFontSizes(
   createTheme({
+    palette: {
+      mode: 'dark',
+      primary: {
+        main: '#E50914',
+      },
+      secondary: {
+        main: '#221F1F',
+      },
+      background: {
+        default: '#141414',
+        paper: '#221F1F',
+      },
+      text: {
+        primary: '#FFFFFF',
+        secondary: '#B3B3B3',
+      },
+    },
+    typography: {
+      fontFamily: "'Roboto', 'Arial', sans-serif",
+      h1: { fontSize: '3rem', fontWeight: 700 },
+      h2: { fontSize: '2.5rem', fontWeight: 700 },
+      h3: { fontSize: '2rem', fontWeight: 600 },
+      body1: { fontSize: '1rem', color: '#E5E5E5' },
+      button: {
+        textTransform: 'none',
+        fontWeight: 'bold',
+      },
+    },
     components: {
       MuiAppBar: {
         styleOverrides: {
@@ -17,6 +46,7 @@ const theme = responsiveFontSizes(
         defaultProps: {
           disableRipple: true,
         },
+      
       },
       MuiButtonBase: {
         defaultProps: {
