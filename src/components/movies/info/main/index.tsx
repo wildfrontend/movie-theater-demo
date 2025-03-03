@@ -16,10 +16,10 @@ import { useFetchMovie } from '@/apis/movies/api';
 import useMovieIdQueyParams from '@/hooks/movies/item';
 
 import MovieCredits from '../credits';
+import MovieHeadline from '../headline';
 import MovieReviews from '../reviews';
 import MovieAttribute from './attributes';
 import MovieGenres from './genres';
-import MovieHeadline from './headline';
 import MovieOverview from './overview';
 import MovieStatus from './status';
 import MovieTitle from './title';

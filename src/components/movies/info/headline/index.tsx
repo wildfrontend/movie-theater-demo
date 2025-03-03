@@ -4,30 +4,34 @@ import { Box, Button, Stack } from '@mui/material';
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { useMovieDetail } from '.';
+import { useMovieDetail } from '../main';
+import MovieTrailer from './trailer';
 
 const defaultImg = 'https://fakeimg.pl/400x225?text=Oops';
-
+{
+  /* <Image
+alt={detail?.title ?? 'noalt'}
+fill
+loading="eager"
+onError={(e) => {
+  setImageError(true);
+}}
+src={
+  imageError || !detail?.backdrop_path
+    ? defaultImg
+    : `https://image.tmdb.org/t/p/w780${detail?.backdrop_path}`
+}
+style={{ objectFit: 'cover' }}
+unoptimized
+/> */
+}
 const MovieHeadline: React.FC = () => {
   const { detail } = useMovieDetail();
   const [imageError, setImageError] = useState(false);
+  const [isPlay, setPlayer] = useState(false);
   return (
     <Box sx={{ aspectRatio: '780 / 439', position: 'relative' }}>
-      <Image
-        alt={detail?.title ?? 'noalt'}
-        fill
-        loading="eager"
-        onError={(e) => {
-          setImageError(true);
-        }}
-        src={
-          imageError || !detail?.backdrop_path
-            ? defaultImg
-            : `https://image.tmdb.org/t/p/w780${detail?.backdrop_path}`
-        }
-        style={{ objectFit: 'cover' }}
-        unoptimized
-      />
+      <MovieTrailer />
       <Stack
         sx={{
           position: 'absolute',
@@ -40,7 +44,12 @@ const MovieHeadline: React.FC = () => {
         direction="row"
         padding="8px"
       >
-        <Button startIcon={<PlayArrowIcon />} size="small" variant="contained" color="primary">
+        <Button
+          startIcon={<PlayArrowIcon />}
+          size="small"
+          variant="contained"
+          color="primary"
+        >
           播放預告片
         </Button>
         <Button
