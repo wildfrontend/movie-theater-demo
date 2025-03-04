@@ -2,6 +2,10 @@ import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
+import {
+  movieDetailQueryOptions,
+  movieVideosQueryOptions,
+} from '@/apis/movies/query-options';
 import { watchlistQueryOptions } from '@/apis/user/query-options';
 import MovieInfo from '@/components/movies/info/main';
 import MoviesSkeleton from '@/components/movies/movies/list/skeleton';
@@ -16,9 +20,10 @@ export const metadata: Metadata = {
 const Page: React.FC<{
   searchParams: Promise<{
     sortBy?: string;
+    movieId?: string;
   }>;
 }> = async ({ searchParams }) => {
-  const { sortBy } = await searchParams;
+  const { sortBy, movieId } = await searchParams;
   const queryClient = getQueryClient();
 
   await queryClient.prefetchInfiniteQuery(

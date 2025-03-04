@@ -2,6 +2,8 @@ import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import React, { Suspense } from 'react';
 
 import {
+  movieDetailQueryOptions,
+  movieVideosQueryOptions,
   popularMoviesQueryOptions,
   searchMoviesQueryOptions,
 } from '@/apis/movies/query-options';
@@ -17,7 +19,7 @@ const Page: React.FC<{
     movieId?: string;
   }>;
 }> = async ({ searchParams }) => {
-  const { search } = await searchParams;
+  const { search, movieId } = await searchParams;
   const queryClient = getQueryClient();
 
   if (search) {
@@ -26,6 +28,13 @@ const Page: React.FC<{
     );
   } else {
     await queryClient.prefetchInfiniteQuery(popularMoviesQueryOptions());
+  }
+
+  if (movieId) {
+    await Promise.all([
+      queryClient.prefetchQuery(movieDetailQueryOptions(movieId)),
+      queryClient.prefetchQuery(movieVideosQueryOptions(movieId)),
+    ]);
   }
 
   return (

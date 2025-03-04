@@ -23,7 +23,7 @@ import MovieOverview from './overview';
 import MovieStatus from './status';
 import MovieTitle from './title';
 
-const MovieInfo: React.FC<{}> = ({}) => {
+const MovieInfo: React.FC<{}> = ({ }) => {
   const { movieId, removeMovieId } = useMovieIdQueyParams();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));

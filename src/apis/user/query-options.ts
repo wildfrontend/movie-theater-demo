@@ -1,4 +1,5 @@
 import { infiniteQueryOptions } from '@tanstack/react-query';
+import { cache } from 'react';
 
 import {
   GetWatchlistQueryParams,

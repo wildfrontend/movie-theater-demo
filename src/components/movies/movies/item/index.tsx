@@ -25,22 +25,6 @@ const MovieListItem: React.FC<{
           onClick={() => {
             setMovieId(movie.id);
           }}
-          onMouseEnter={async () => {
-            const queryKey = movieDetailQueryOptions(movie.id).queryKey;
-            if (!queryClient.getQueryData(queryKey)) {
-              await queryClient.prefetchQuery(
-                movieDetailQueryOptions(movie.id)
-              );
-            }
-          }}
-          onTouchStart={async () => {
-            const queryKey = movieDetailQueryOptions(movie.id).queryKey;
-            if (!queryClient.getQueryData(queryKey)) {
-              await queryClient.prefetchQuery(
-                movieDetailQueryOptions(movie.id)
-              );
-            }
-          }}
         >
           <CardMedia
             sx={{ width: '100%', aspectRatio: 154 / 220, position: 'relative' }}
