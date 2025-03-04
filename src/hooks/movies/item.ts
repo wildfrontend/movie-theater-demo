@@ -19,11 +19,11 @@ const useMovieIdQueyParams = () => {
     [urlSearchParams]
   );
   const setMovieId = (movieId: PathParamId) => {
-    setQueryParams({ movieId });
+    setQueryParams({ movieId }, { scroll: false });
   };
   const removeMovieId = () => {
     if (urlSearchParams.has('movieId')) {
-      removeQueryParams('movieId');
+      removeQueryParams('movieId', { scroll: false });
     }
   };
   return {
