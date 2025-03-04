@@ -5,18 +5,16 @@ import { Grid2 } from '@mui/material';
 import React from 'react';
 import { InView } from 'react-intersection-observer';
 
-import { useFetchSearchMovies } from '@/apis/movies/api';
+import { useFetchWatchlist } from '@/apis/user/api';
 import FailedPanel from '@/components/error/failed';
-import useMovieIdQueyParams from '@/hooks/movies/item';
-import useSearhMoviesQueyParams from '@/hooks/movies/search';
+import useWatchlistQueyParams from '@/hooks/user/watchlist';
 
 import MovieListItem from '../item';
+import MoviesEmpty from '../list/empty';
 import { LoadMoreSkeleton } from '../list/skeleton';
-import ResultsEmpty from '../popluar';
 
-const SearchResults: React.FC = () => {
-  const { search } = useSearhMoviesQueyParams();
-  const { movieId } = useMovieIdQueyParams();
+const Watchlist: React.FC = () => {
+  const { sortBy } = useWatchlistQueyParams();
   const {
     data,
     fetchNextPage,
@@ -24,11 +22,10 @@ const SearchResults: React.FC = () => {
     isFetchingNextPage,
     isFetched,
     error,
-  } = useFetchSearchMovies({
+  } = useFetchWatchlist({
     params: {
-      query: search,
+      sort_by: sortBy,
     },
-    enabled: !!search && !movieId,
   });
 
   let listCount = 1;
@@ -37,13 +34,13 @@ const SearchResults: React.FC = () => {
     return <FailedPanel error={error} />;
   }
   if (!isFetched) {
-    return <ResultsEmpty />;
+    return <MoviesEmpty />;
   }
   return (
     <Container maxWidth="lg">
       <Stack pt="32px" spacing="16px">
         <Typography fontWeight="bold" variant="h2">
-          搜尋結果
+          待看清單
         </Typography>
         <Grid2 columns={12} container py={2} spacing={{ xs: 2, md: 3 }}>
           {data?.pages?.map((group, i) => {
@@ -67,14 +64,9 @@ const SearchResults: React.FC = () => {
           )}
           {isFetchingNextPage && <LoadMoreSkeleton />}
         </Grid2>
-        {!hasNextPage && (
-          <Typography component="span" fontWeight="bold" variant="h4">
-            已經顯示所有結果
-          </Typography>
-        )}
       </Stack>
     </Container>
   );
 };
 
-export default SearchResults;
+export default Watchlist;

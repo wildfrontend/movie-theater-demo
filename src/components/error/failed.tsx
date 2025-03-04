@@ -1,6 +1,6 @@
 import { Alert, Container, Stack, Typography } from '@mui/material';
 
-const SearchFailed: React.FC<{ error: Error | null }> = ({ error }) => {
+const FailedPanel: React.FC<{ error: Error | null }> = ({ error }) => {
   return (
     <Container maxWidth="lg">
       <Stack pt="32px" spacing="16px">
@@ -26,4 +26,4 @@ const SearchFailed: React.FC<{ error: Error | null }> = ({ error }) => {
   );
 };
 
-export default SearchFailed;
+export default FailedPanel;

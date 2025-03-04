@@ -4,10 +4,7 @@ import { useState } from 'react';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 
-import {
-  useFetchMovie,
-  useFetchMovieVideos,
-} from '@/apis/movies/api';
+import { useFetchMovie, useFetchMovieVideos } from '@/apis/movies/api';
 import useMovieIdQueyParams from '@/hooks/movies/item';
 
 import AddWatchlist from './add-watchlist';

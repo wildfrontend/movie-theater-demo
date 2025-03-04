@@ -2,10 +2,10 @@ import { Container, Grid2, Stack, Typography } from '@mui/material';
 import { InView } from 'react-intersection-observer';
 
 import { useFetchPopularMovies } from '@/apis/movies/api';
+import FailedPanel from '@/components/error/failed';
 
 import MovieListItem from '../item';
 import MoviesEmpty from '../list/empty';
-import SearchFailed from '../list/error';
 import { LoadMoreSkeleton } from '../list/skeleton';
 
 const ResultsEmpty: React.FC = () => {
@@ -22,7 +22,7 @@ const ResultsEmpty: React.FC = () => {
   let listCount = 1;
 
   if (error) {
-    return <SearchFailed error={error} />;
+    return <FailedPanel error={error} />;
   }
 
   if (data?.pages.length === 0) {

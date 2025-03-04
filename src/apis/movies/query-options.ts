@@ -110,9 +110,6 @@ export const movieReviewsQueryOptions = (movieId?: PathParamId) =>
         `/movie/${movieId}/reviews`,
         {
           signal,
-          params: {
-            language: 'zh-TW',
-          },
         }
       );
       return res.data;

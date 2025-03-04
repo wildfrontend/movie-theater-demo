@@ -1,7 +1,6 @@
 const pagePath = {
   home: '/',
-  movieDetail: '/movies/:movieId',
-  favorite: '/favorites',
+  watchlist: '/watchlist',
 };
 
 export default pagePath;

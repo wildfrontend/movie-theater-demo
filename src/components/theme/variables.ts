@@ -1,9 +1,7 @@
 'use client';
 
-import { buttonClasses } from '@mui/material';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
-console.log(buttonClasses.disabled);
 const theme = responsiveFontSizes(
   createTheme({
     palette: {

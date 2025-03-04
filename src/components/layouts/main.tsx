@@ -1,17 +1,26 @@
-import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
+import Link from 'next/link';
 import type { PropsWithChildren } from 'react';
 
-import Profile from './profile';
+import pagePath from '@/constants/path';
 
 const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       <AppBar position="fixed">
         <Toolbar style={{ justifyContent: 'space-between', height: '64px' }}>
-          <Typography component="div" variant="h6">
-            Movie Datebase
-          </Typography>
-          <Profile />
+          <Link href={pagePath.home}>
+            <Typography component="div" variant="h6">
+              Movie Datebase
+            </Typography>
+          </Link>
+          <Button
+            LinkComponent={Link}
+            color="inherit"
+            href={pagePath.watchlist}
+          >
+            待看清單
+          </Button>
         </Toolbar>
       </AppBar>
       <Box
