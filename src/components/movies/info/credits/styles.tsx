@@ -15,4 +15,4 @@ export const ScrollBox = styled(Box)(({ theme }) => ({
   ['&::-webkit-scrollbar-track']: {
     background: 'rgba(0, 0, 0, 0)',
   },
-}));
+})) as typeof Box;

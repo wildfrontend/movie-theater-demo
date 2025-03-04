@@ -2,8 +2,6 @@ import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
-
-
 import { watchlistQueryOptions } from '@/apis/user/query-options';
 import MovieInfo from '@/components/movies/info/main';
 import MoviesSkeleton from '@/components/movies/movies/list/skeleton';

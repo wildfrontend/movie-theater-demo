@@ -3,8 +3,6 @@ import { times } from 'lodash-es';
 
 import { ScrollBox } from './styles';
 
-const defaultImg = 'https://fakeimg.pl/138x175/?text=Oops';
-
 const MovieCreditsSkeleton: React.FC = () => {
   return (
     <ScrollBox>

@@ -33,6 +33,14 @@ const MovieListItem: React.FC<{
               );
             }
           }}
+          onTouchStart={async () => {
+            const queryKey = movieDetailQueryOptions(movie.id).queryKey;
+            if (!queryClient.getQueryData(queryKey)) {
+              await queryClient.prefetchQuery(
+                movieDetailQueryOptions(movie.id)
+              );
+            }
+          }}
         >
           <CardMedia
             sx={{ width: '100%', aspectRatio: 154 / 220, position: 'relative' }}
