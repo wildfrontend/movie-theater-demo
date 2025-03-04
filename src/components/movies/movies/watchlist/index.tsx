@@ -1,6 +1,13 @@
 'use client';
 
-import { Container, Stack, Typography } from '@mui/material';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import {
+  Button,
+  ButtonGroup,
+  Container,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { Grid2 } from '@mui/material';
 import React from 'react';
 import { InView } from 'react-intersection-observer';
@@ -8,13 +15,14 @@ import { InView } from 'react-intersection-observer';
 import { useFetchWatchlist } from '@/apis/user/api';
 import FailedPanel from '@/components/error/failed';
 import useWatchlistQueyParams from '@/hooks/user/watchlist';
+import { WatchlistSortType } from '@/types/apis/user';
 
 import MovieListItem from '../item';
 import MoviesEmpty from '../list/empty';
 import { LoadMoreSkeleton } from '../list/skeleton';
 
 const Watchlist: React.FC = () => {
-  const { sortBy } = useWatchlistQueyParams();
+  const { sortBy, setSortBy, removeSortBy } = useWatchlistQueyParams();
   const {
     data,
     fetchNextPage,
@@ -42,6 +50,24 @@ const Watchlist: React.FC = () => {
         <Typography fontWeight="bold" variant="h2">
           待看清單
         </Typography>
+        <Stack direction="row" justifyContent="end">
+          <ButtonGroup variant="contained" aria-label="sort">
+            <Button
+              onClick={() => {
+                setSortBy(WatchlistSortType.asc);
+              }}
+            >
+              由上往下
+            </Button>
+            <Button
+              onClick={() => {
+                setSortBy(WatchlistSortType.desc);
+              }}
+            >
+              由下往上
+            </Button>
+          </ButtonGroup>
+        </Stack>
         <Grid2 columns={12} container py={2} spacing={{ xs: 2, md: 3 }}>
           {data?.pages?.map((group, i) => {
             return group?.results.map((item) => {

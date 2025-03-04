@@ -22,7 +22,9 @@ const useMovieIdQueyParams = () => {
     setQueryParams({ movieId });
   };
   const removeMovieId = () => {
-    removeQueryParams('movieId');
+    if (urlSearchParams.has('movieId')) {
+      removeQueryParams('movieId');
+    }
   };
   return {
     movieId,
