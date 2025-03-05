@@ -1,6 +1,7 @@
 'use client';
 
 import { Typography } from '@mui/material';
+
 import { useMovieDetail } from '../hooks/detail';
 
 const MovieOverview: React.FC = () => {

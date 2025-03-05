@@ -2,7 +2,6 @@
 
 import { Chip, Stack } from '@mui/material';
 
-
 import { useMovieDetail } from '../hooks/detail';
 
 const MovieGenres: React.FC = () => {

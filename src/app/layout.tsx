@@ -2,6 +2,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import '@pigment-css/react/styles.css';
 import type { Metadata } from 'next';
 import type { PropsWithChildren } from 'react';
+import React from 'react';
 
 import MainLayout from '@/components/layouts/main';
 import ReactQueryProvider from '@/components/react-query/provider';
@@ -13,7 +14,10 @@ export const metadata: Metadata = {
   description: 'Interview demo',
 };
 
-const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
+const RootLayout: React.FC<PropsWithChildren<{ modal: React.ReactNode }>> = ({
+  children,
+  modal,
+}) => {
   return (
     <html suppressHydrationWarning>
       <body>
@@ -22,6 +26,7 @@ const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
           <AppRouterCacheProvider>
             <MuiThemeProvider>
               <MainLayout>{children}</MainLayout>
+              {modal}
             </MuiThemeProvider>
           </AppRouterCacheProvider>
         </ReactQueryProvider>

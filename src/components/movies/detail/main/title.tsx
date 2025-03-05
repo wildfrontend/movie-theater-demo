@@ -2,7 +2,6 @@
 
 import { Typography } from '@mui/material';
 
-
 import { useMovieDetail } from '../hooks/detail';
 
 const MovieTitle: React.FC = () => {

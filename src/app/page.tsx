@@ -25,7 +25,6 @@ const Page: React.FC<{
   } else {
     await queryClient.prefetchInfiniteQuery(popularMoviesQueryOptions());
   }
-
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <SearchSection />

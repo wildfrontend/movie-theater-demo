@@ -13,7 +13,6 @@ import { InView } from 'react-intersection-observer';
 
 import { useFetchSearchMovies } from '@/apis/movies/api';
 import FailedPanel from '@/components/error/failed';
-import useMovieIdQueyParams from '@/hooks/movies/item';
 import useSearhMoviesQueyParams from '@/hooks/movies/search';
 
 import MovieListItem from '../item';
@@ -24,7 +23,7 @@ import ResultsSkeleton from './skeleton';
 
 const SearchResults: React.FC = () => {
   const { search } = useSearhMoviesQueyParams();
-  const { movieId } = useMovieIdQueyParams();
+
   const {
     data,
     fetchNextPage,
@@ -38,7 +37,7 @@ const SearchResults: React.FC = () => {
     params: {
       query: search,
     },
-    enabled: !!search && !movieId,
+    enabled: !!search,
   });
 
   let listCount = 1;
