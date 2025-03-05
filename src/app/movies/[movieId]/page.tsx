@@ -19,6 +19,7 @@ import MovieAttribute from '@/components/movies/detail/main/attributes';
 import MovieGenres from '@/components/movies/detail/main/genres';
 import MovieHeadline from '@/components/movies/detail/main/headline';
 import MovieOverview from '@/components/movies/detail/main/overview';
+import RemoveQueryParams from '@/components/movies/detail/main/remove-query';
 import MovieStatus from '@/components/movies/detail/main/status';
 import MovieTitle from '@/components/movies/detail/main/title';
 import MovieReviews from '@/components/movies/detail/reviews';
@@ -53,6 +54,7 @@ const Page: React.FC<{
           },
         }}
       >
+        <RemoveQueryParams />
         <Card>
           <CardMedia>
             <MovieHeadline />
