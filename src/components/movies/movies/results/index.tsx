@@ -28,6 +28,7 @@ const SearchResults: React.FC = () => {
   const {
     data,
     fetchNextPage,
+    isLoading,
     hasNextPage,
     isFetchingNextPage,
     isFetched,
@@ -42,11 +43,12 @@ const SearchResults: React.FC = () => {
 
   let listCount = 1;
 
+
+  if (isLoading) {
+    return <ResultsSkeleton />;
+  }
   if (error) {
     return <FailedPanel error={error} />;
-  }
-  if (isFetching) {
-    return <ResultsSkeleton />;
   }
   if (!isFetched) {
     return <ResultsEmpty />;

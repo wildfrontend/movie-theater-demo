@@ -25,8 +25,7 @@ const Watchlist: React.FC = () => {
   const { sortBy, setSortBy } = useWatchlistQueyParams();
   const {
     data,
-    isFetching,
-
+    isLoading,
     hasNextPage,
     isFetchingNextPage,
     error,
@@ -39,7 +38,7 @@ const Watchlist: React.FC = () => {
 
   let listCount = 1;
 
-  if (isFetching) {
+  if (isLoading) {
     return <WatchlistSkeleton />;
   }
   if (error) {

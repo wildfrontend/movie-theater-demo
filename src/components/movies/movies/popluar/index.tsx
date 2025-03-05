@@ -12,19 +12,20 @@ import PopluarSkeleton from './skeleton';
 const ResultsEmpty: React.FC = () => {
   const {
     data,
+    isLoading,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    isFetching,
     error,
   } = useFetchPopularMovies();
+
   let listCount = 1;
 
+  if (isLoading) {
+    return <PopluarSkeleton />;
+  }
   if (error) {
     return <FailedPanel error={error} />;
-  }
-  if (isFetching) {
-    return <PopluarSkeleton />;
   }
   if (data?.pages.length === 0) {
     return <MoviesEmpty />;
