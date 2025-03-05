@@ -14,10 +14,7 @@ export const metadata: Metadata = {
   description: 'Interview demo',
 };
 
-const RootLayout: React.FC<PropsWithChildren<{ modal: React.ReactNode }>> = ({
-  children,
-  modal,
-}) => {
+const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <html suppressHydrationWarning>
       <body>
@@ -26,7 +23,6 @@ const RootLayout: React.FC<PropsWithChildren<{ modal: React.ReactNode }>> = ({
           <AppRouterCacheProvider>
             <MuiThemeProvider>
               <MainLayout>{children}</MainLayout>
-              {modal}
             </MuiThemeProvider>
           </AppRouterCacheProvider>
         </ReactQueryProvider>
