@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Box,
   Button,
@@ -10,9 +12,10 @@ import {
 import React, { useState } from 'react';
 
 import { useFetchMovieReviews } from '@/apis/movies/api';
-import useMovieIdQueyParams from '@/hooks/movies/item';
 import { MovieReview } from '@/types/apis/movies';
 import dayjs from '@/utils/dayjs';
+
+import { useMovieDetail } from '../hooks/detail';
 
 const ReviewItem: React.FC<{ review: MovieReview }> = ({ review }) => {
   const [isReadMore, setIsReadMore] = useState(false);
@@ -54,7 +57,7 @@ const ReviewItem: React.FC<{ review: MovieReview }> = ({ review }) => {
 };
 
 const MovieReviews: React.FC = () => {
-  const { movieId } = useMovieIdQueyParams();
+  const { movieId } = useMovieDetail();
   const { reviews } = useFetchMovieReviews(movieId);
   if ((reviews?.length ?? 0) === 0) {
     return (

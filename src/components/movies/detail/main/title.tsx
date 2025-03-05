@@ -1,11 +1,12 @@
+'use client';
+
 import { Typography } from '@mui/material';
 
-import { useFetchMovie } from '@/apis/movies/api';
-import useMovieIdQueyParams from '@/hooks/movies/item';
+
+import { useMovieDetail } from '../hooks/detail';
 
 const MovieTitle: React.FC = () => {
-  const { movieId } = useMovieIdQueyParams();
-  const { detail } = useFetchMovie(movieId);
+  const { detail } = useMovieDetail();
   return (
     <Typography fontWeight="bold" gutterBottom variant="h4">
       {detail?.title}

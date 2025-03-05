@@ -1,9 +1,8 @@
+'use client';
+
 import { Grid2, Typography } from '@mui/material';
 
-import { useFetchMovie } from '@/apis/movies/api';
-import useMovieIdQueyParams from '@/hooks/movies/item';
-
-import { useMovieCredits } from '../credits';
+import { useMovieCredits, useMovieDetail } from '../hooks/detail';
 
 const getScoreColor = (score: number) => {
   if (score < 5) return 'error';
@@ -21,8 +20,7 @@ const numberToUS = (money?: number) => {
 };
 
 const MovieStatus: React.FC = () => {
-  const { movieId } = useMovieIdQueyParams();
-  const { detail } = useFetchMovie(movieId);
+  const { detail } = useMovieDetail();
   const { crew } = useMovieCredits();
 
   const formattedScore =

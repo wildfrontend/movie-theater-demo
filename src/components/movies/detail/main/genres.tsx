@@ -1,11 +1,12 @@
+'use client';
+
 import { Chip, Stack } from '@mui/material';
 
-import { useFetchMovie } from '@/apis/movies/api';
-import useMovieIdQueyParams from '@/hooks/movies/item';
+
+import { useMovieDetail } from '../hooks/detail';
 
 const MovieGenres: React.FC = () => {
-  const { movieId } = useMovieIdQueyParams();
-  const { detail } = useFetchMovie(movieId);
+  const { detail } = useMovieDetail();
   return (
     <Stack direction="row" spacing="8px">
       {detail?.genres.map((genre) => (

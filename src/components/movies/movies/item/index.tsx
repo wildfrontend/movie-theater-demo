@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
-
 import type { SearchMovieItem } from '@/types/apis/movies';
 import { generateMovieHerf } from '@/utils/link';
 

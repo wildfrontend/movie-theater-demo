@@ -1,20 +1,13 @@
+'use client';
+
 import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 
-import { useFetchMovieCredits } from '@/apis/movies/api';
-import useMovieIdQueyParams from '@/hooks/movies/item';
-
+import { useMovieCredits } from '../hooks/detail';
 import MovieCreditsSkeleton from './skeleton';
 import { ScrollBox } from './styles';
 
 const defaultImg = 'https://fakeimg.pl/138x175';
-
-export const useMovieCredits = () => {
-  const { movieId } = useMovieIdQueyParams();
-  const data = useFetchMovieCredits(movieId);
-  return data;
-};
-
 const MovieCredits: React.FC = () => {
   const { cast, isFetching } = useMovieCredits();
   if (isFetching) {
