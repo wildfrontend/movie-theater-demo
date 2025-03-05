@@ -8,12 +8,14 @@ import {
   Typography,
 } from '@mui/material';
 import { Grid2 } from '@mui/material';
-import React from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { InView } from 'react-intersection-observer';
 
 import { useFetchSearchMovies } from '@/apis/movies/api';
 import FailedPanel from '@/components/error/failed';
-import useSearhMoviesQueyParams from '@/hooks/movies/search';
+import useSearchMoviesQueyParams from '@/hooks/movies/search';
+import { SearchMoviesSortType } from '@/types/apis/movies';
+import dayjs from '@/utils/dayjs';
 
 import MovieListItem from '../item';
 import MoviesEmpty from '../list/empty';
@@ -21,9 +23,26 @@ import { LoadMoreSkeleton } from '../list/skeleton';
 import ResultsEmpty from '../popluar';
 import ResultsSkeleton from './skeleton';
 
-const SearchResults: React.FC = () => {
-  const { search } = useSearhMoviesQueyParams();
+const useSortBy = () => {
+  const [sortBy, setSortBy] = useState<string | undefined>(undefined);
 
+  const setNewestSort = useCallback(() => {
+    setSortBy(SearchMoviesSortType.newest);
+  }, []);
+
+  const setOldestSort = useCallback(() => {
+    setSortBy(SearchMoviesSortType.oldest);
+  }, []);
+
+  return {
+    sortBy,
+    setNewestSort,
+    setOldestSort,
+  };
+};
+
+const SearchResults: React.FC = () => {
+  const { search } = useSearchMoviesQueyParams();
   const {
     data,
     fetchNextPage,
@@ -31,7 +50,6 @@ const SearchResults: React.FC = () => {
     hasNextPage,
     isFetchingNextPage,
     isFetched,
-    isFetching,
     error,
   } = useFetchSearchMovies({
     params: {
@@ -39,6 +57,23 @@ const SearchResults: React.FC = () => {
     },
     enabled: !!search,
   });
+
+  const { sortBy, setNewestSort, setOldestSort } = useSortBy();
+
+  //https://chatgpt.com/c/67c81d1d-0134-8012-8328-a3bf3052c66f
+  const movies = useMemo(() => {
+    const results = data?.pages?.flatMap((group) => group?.results) ?? [];
+    const sortedResults = [...results].sort((a, b) => {
+      if (sortBy === SearchMoviesSortType.oldest) {
+        return dayjs(a.release_date).unix() - dayjs(b.release_date).unix();
+      }
+      if (sortBy === SearchMoviesSortType.newest) {
+        return dayjs(b.release_date).unix() - dayjs(a.release_date).unix();
+      }
+      return 0;
+    });
+    return sortedResults;
+  }, [data, sortBy]);
 
   let listCount = 1;
 
@@ -51,7 +86,7 @@ const SearchResults: React.FC = () => {
   if (!isFetched) {
     return <ResultsEmpty />;
   }
-  if ((data?.pages?.[0]?.results?.length ?? 0) === 0) {
+  if ((movies?.length ?? 0) === 0) {
     return <MoviesEmpty />;
   }
   return (
@@ -62,19 +97,17 @@ const SearchResults: React.FC = () => {
         </Typography>
         <Stack direction="row" justifyContent="end">
           <ButtonGroup aria-label="sort" variant="contained">
-            <Button>由上往下</Button>
-            <Button>由下往上</Button>
+            <Button onClick={setNewestSort}>由新至舊</Button>
+            <Button onClick={setOldestSort}>由舊至新</Button>
           </ButtonGroup>
         </Stack>
         <Grid2 columns={12} container py={2} spacing={{ xs: 2, md: 3 }}>
-          {data?.pages?.map((group, i) => {
-            return group?.results.map((item) => {
-              return (
-                <Grid2 key={item.id} size={{ xs: 6, sm: 4, md: 3 }}>
-                  <MovieListItem listCount={listCount++} movie={item} />
-                </Grid2>
-              );
-            });
+          {movies.map((item) => {
+            return (
+              <Grid2 key={item.id} size={{ xs: 6, sm: 4, md: 3 }}>
+                <MovieListItem listCount={listCount++} movie={item} />
+              </Grid2>
+            );
           })}
           {isFetchingNextPage && <LoadMoreSkeleton />}
         </Grid2>

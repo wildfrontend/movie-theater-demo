@@ -60,14 +60,14 @@ const Watchlist: React.FC = () => {
                 setSortBy(WatchlistSortType.asc);
               }}
             >
-              由上往下
+              由新至舊
             </Button>
             <Button
               onClick={() => {
                 setSortBy(WatchlistSortType.desc);
               }}
             >
-              由下往上
+              由舊往新
             </Button>
           </ButtonGroup>
         </Stack>

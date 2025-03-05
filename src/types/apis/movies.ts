@@ -31,8 +31,8 @@ export type GetPopularMoviesResponse = {
  */
 
 export enum SearchMoviesSortType {
-  asc = 'created_at.asc',
-  desc = 'created_at.desc',
+  newest = 'newest',
+  oldest = 'oldest',
 }
 
 export type GetSearchMoviesQueryParams = UrlQueryParams<{
