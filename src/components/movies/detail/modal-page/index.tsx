@@ -3,6 +3,7 @@
 import CloseIcon from '@mui/icons-material/Close';
 import {
   Dialog,
+  dialogClasses,
   DialogContent,
   IconButton,
   Stack,
@@ -36,6 +37,11 @@ const MovieModalPage: React.FC = () => {
       onClose={onClose}
       open
       scroll="body"
+      sx={{
+        [`.${dialogClasses.container}:after`]: {
+          height: 'auto'
+        }
+      }}
     >
       <IconButton
         onClick={onClose}

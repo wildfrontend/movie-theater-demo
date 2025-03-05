@@ -31,6 +31,7 @@ const MovieListItem: React.FC<{
               pathname: generateMovieHerf(movie.id),
               search: isBrowser ? window.location.search : undefined,
             },
+            scroll: false
           }}
         >
           <CardMedia
