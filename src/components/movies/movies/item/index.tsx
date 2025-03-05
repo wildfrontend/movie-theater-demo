@@ -1,12 +1,13 @@
 'use client';
 
 import { Card, CardActionArea, CardMedia } from '@mui/material';
-import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useState } from 'react';
 
-import useMovieIdQueyParams from '@/hooks/movies/item';
+
 import type { SearchMovieItem } from '@/types/apis/movies';
+import { generateMovieHerf } from '@/utils/link';
 
 const defaultImg = 'https://fakeimg.pl/154x220';
 
@@ -14,17 +15,11 @@ const MovieListItem: React.FC<{
   movie: SearchMovieItem;
   listCount: number;
 }> = ({ movie, listCount }) => {
-  const { movieId, setMovieId } = useMovieIdQueyParams();
-  const queryClient = useQueryClient();
   const [imageError, setImageError] = useState(false);
   return (
     <>
       <Card>
-        <CardActionArea
-          onClick={() => {
-            setMovieId(movie.id);
-          }}
-        >
+        <CardActionArea LinkComponent={Link} href={generateMovieHerf(movie.id)}>
           <CardMedia
             sx={{ width: '100%', aspectRatio: 154 / 220, position: 'relative' }}
           >

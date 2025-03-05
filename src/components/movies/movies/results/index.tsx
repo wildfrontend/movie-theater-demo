@@ -43,7 +43,6 @@ const SearchResults: React.FC = () => {
 
   let listCount = 1;
 
-
   if (isLoading) {
     return <ResultsSkeleton />;
   }
