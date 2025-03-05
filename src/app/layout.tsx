@@ -6,6 +6,7 @@ import type { PropsWithChildren } from 'react';
 import MainLayout from '@/components/layouts/main';
 import ReactQueryProvider from '@/components/react-query/provider';
 import MuiThemeProvider from '@/components/theme';
+import WebVitals from '@/components/web-vitals';
 
 export const metadata: Metadata = {
   title: 'The Movie Datebase',
@@ -16,6 +17,7 @@ const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <html suppressHydrationWarning>
       <body>
+        <WebVitals />
         <ReactQueryProvider>
           <AppRouterCacheProvider>
             <MuiThemeProvider>

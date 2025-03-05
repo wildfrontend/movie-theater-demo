@@ -11,8 +11,9 @@ import useMovieIdQueyParams from '@/hooks/movies/item';
 import useSearhMoviesQueyParams from '@/hooks/movies/search';
 
 import MovieListItem from '../item';
-import { LoadMoreSkeleton } from '../list/skeleton';
+import MoviesSkeleton, { LoadMoreSkeleton } from '../list/skeleton';
 import ResultsEmpty from '../popluar';
+import MoviesEmpty from '../list/empty';
 
 const SearchResults: React.FC = () => {
   const { search } = useSearhMoviesQueyParams();
@@ -23,6 +24,7 @@ const SearchResults: React.FC = () => {
     hasNextPage,
     isFetchingNextPage,
     isFetched,
+    isFetching,
     error,
   } = useFetchSearchMovies({
     params: {
@@ -36,8 +38,14 @@ const SearchResults: React.FC = () => {
   if (error) {
     return <FailedPanel error={error} />;
   }
+  if (isFetching) {
+    return <MoviesSkeleton />
+  }
   if (!isFetched) {
     return <ResultsEmpty />;
+  }
+  if ((data?.pages?.[0]?.results?.length ?? 0) === 0) {
+    return <MoviesEmpty />
   }
   return (
     <Container maxWidth="lg">

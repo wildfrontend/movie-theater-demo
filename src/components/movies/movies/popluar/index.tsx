@@ -6,17 +6,15 @@ import FailedPanel from '@/components/error/failed';
 
 import MovieListItem from '../item';
 import MoviesEmpty from '../list/empty';
-import { LoadMoreSkeleton } from '../list/skeleton';
+import MoviesSkeleton, { LoadMoreSkeleton } from '../list/skeleton';
 
 const ResultsEmpty: React.FC = () => {
   const {
     data,
     fetchNextPage,
     hasNextPage,
-    isFetching,
     isFetchingNextPage,
-    isFetched,
-
+    isFetching,
     error,
   } = useFetchPopularMovies();
   let listCount = 1;
@@ -24,11 +22,12 @@ const ResultsEmpty: React.FC = () => {
   if (error) {
     return <FailedPanel error={error} />;
   }
-
+  if (isFetching) {
+    return <MoviesSkeleton />
+  }
   if (data?.pages.length === 0) {
     return <MoviesEmpty />;
   }
-
   return (
     <Container maxWidth="lg">
       <Stack pt="32px" spacing="16px">

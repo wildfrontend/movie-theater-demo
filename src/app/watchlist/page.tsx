@@ -10,6 +10,7 @@ import { watchlistQueryOptions } from '@/apis/user/query-options';
 import MovieInfo from '@/components/movies/info/main';
 import MoviesSkeleton from '@/components/movies/movies/list/skeleton';
 import Watchlist from '@/components/movies/movies/watchlist';
+import PlaySomethingSection from '@/components/movies/play-someting';
 import { getQueryClient } from '@/utils/react-query';
 
 export const metadata: Metadata = {
@@ -34,8 +35,16 @@ const Page: React.FC<{
     })
   );
 
+  if (movieId) {
+    await Promise.all([
+      queryClient.prefetchQuery(movieDetailQueryOptions(movieId)),
+      queryClient.prefetchQuery(movieVideosQueryOptions(movieId)),
+    ]);
+  }
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
+      <PlaySomethingSection />
       <Suspense fallback={<MoviesSkeleton />}>
         <Watchlist />
         <MovieInfo />

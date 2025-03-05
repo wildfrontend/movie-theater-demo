@@ -15,7 +15,14 @@ import { MovieReview } from '@/types/apis/movies';
 import dayjs from '@/utils/dayjs';
 
 const ReviewItem: React.FC<{ review: MovieReview }> = ({ review }) => {
-  const [isReadmore, setReadmore] = useState(false);
+  const [isReadMore, setIsReadMore] = useState(false);
+  const toggleReadMore = () => setIsReadMore((prev) => !prev);
+
+  const isLongContent = review.content.length > 200;
+  const displayedContent = isReadMore
+    ? review.content
+    : review.content.slice(0, 200) + (isLongContent ? ' ...' : '');
+
   return (
     <React.Fragment>
       <ListItem alignItems="flex-start">
@@ -24,33 +31,18 @@ const ReviewItem: React.FC<{ review: MovieReview }> = ({ review }) => {
             {review.author}
           </Typography>
           <Typography color="text.secondary" variant="caption">
-            {dayjs(review.updated_at).format('YYYY/MM/DD HH:mm:ss')}
+            {dayjs(review.updated_at).format("YYYY/MM/DD HH:mm:ss")}
           </Typography>
           <Typography display="flow-root" variant="body2">
-            {isReadmore
-              ? review.content
-              : review.content.slice(0, 200) + ` ...`}
-            {isReadmore ? (
+            {displayedContent}
+            {isLongContent && (
               <Button
-                onClick={() => setReadmore(false)}
+                onClick={toggleReadMore}
                 size="small"
-                sx={{
-                  float: 'right',
-                }}
+                sx={{ float: "right" }}
                 variant="text"
               >
-                更少
-              </Button>
-            ) : (
-              <Button
-                onClick={() => setReadmore(true)}
-                size="small"
-                sx={{
-                  float: 'right',
-                }}
-                variant="text"
-              >
-                更多
+                {isReadMore ? "更少" : "更多"}
               </Button>
             )}
           </Typography>
