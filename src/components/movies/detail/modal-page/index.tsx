@@ -10,32 +10,31 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import useMovieIdQueyParams from '@/hooks/movies/item';
+import MovieCredits from '@/components/movies/detail/credits';
+import MovieAttribute from '@/components/movies/detail/main/attributes';
+import MovieGenres from '@/components/movies/detail/main/genres';
+import MovieHeadline from '@/components/movies/detail/main/headline';
+import MovieOverview from '@/components/movies/detail/main/overview';
+import MovieStatus from '@/components/movies/detail/main/status';
+import MovieTitle from '@/components/movies/detail/main/title';
+import MovieReviews from '@/components/movies/detail/reviews';
 
-import MovieCredits from '../credits';
-import MovieReviews from '../reviews';
-import MovieAttribute from './attributes';
-import MovieGenres from './genres';
-import MovieHeadline from './headline';
-import MovieOverview from './overview';
-import MovieStatus from './status';
-import MovieTitle from './title';
-
-const MovieInfo: React.FC<{}> = ({}) => {
-  const { movieId, removeMovieId } = useMovieIdQueyParams();
+const MovieModalPage: React.FC = () => {
+  const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const onClose = () => {
-    removeMovieId();
+    router.back();
   };
   return (
     <Dialog
       fullScreen={isMobile}
       maxWidth="md"
       onClose={onClose}
-      open={!!movieId}
+      open
       scroll="body"
     >
       <IconButton
@@ -75,4 +74,4 @@ const MovieInfo: React.FC<{}> = ({}) => {
   );
 };
 
-export default MovieInfo;
+export default MovieModalPage;

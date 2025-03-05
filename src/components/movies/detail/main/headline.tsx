@@ -1,12 +1,14 @@
+'use client';
+
 import { Box, Skeleton, Stack } from '@mui/material';
 import Image from 'next/image';
 import { useState } from 'react';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 
-import { useFetchMovie, useFetchMovieVideos } from '@/apis/movies/api';
-import useMovieIdQueyParams from '@/hooks/movies/item';
+import { useFetchMovieVideos } from '@/apis/movies/api';
 
+import { useMovieDetail } from '../hooks/detail';
 import AddWatchlist from './add-watchlist';
 
 const defaultImg = 'https://fakeimg.pl/400x225?text=Oops';
@@ -32,8 +34,7 @@ const MovieBackdrop: React.FC<{ alt?: string; url?: string | null }> = ({
 };
 
 const MovieHeadline: React.FC = () => {
-  const { movieId } = useMovieIdQueyParams();
-  const { detail, isFetching } = useFetchMovie(movieId);
+  const { detail, movieId, isFetching } = useMovieDetail();
 
   const { trailer, isFetching: isTrailerFetching } =
     useFetchMovieVideos(movieId);
@@ -41,7 +42,6 @@ const MovieHeadline: React.FC = () => {
   if (isFetching || isTrailerFetching) {
     return <Skeleton sx={{ aspectRatio: '780 / 439', transform: 'initial' }} />;
   }
-
   return (
     <Box sx={{ aspectRatio: '780 / 439', position: 'relative' }}>
       {trailer ? (

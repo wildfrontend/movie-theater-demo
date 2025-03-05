@@ -4,9 +4,10 @@ import { z } from 'zod';
 import useQueryParams from '../global/query-params';
 
 const useWatchlistQueyParams = () => {
-  const { urlSearchParams, setQueryParams } = useQueryParams<{
-    sortBy: string;
-  }>();
+  const { urlSearchParams, setQueryParams, removeQueryParams } =
+    useQueryParams<{
+      sortBy: string;
+    }>();
 
   const sortBy = useMemo(
     () =>
@@ -20,9 +21,17 @@ const useWatchlistQueyParams = () => {
   const setSortBy = (sortBy: string) => {
     setQueryParams({ sortBy });
   };
+
+  const removeSortBy = () => {
+    if (urlSearchParams.has('sortBy')) {
+      removeQueryParams('sortBy');
+    }
+  };
+
   return {
     sortBy,
     setSortBy,
+    removeSortBy,
   };
 };
 

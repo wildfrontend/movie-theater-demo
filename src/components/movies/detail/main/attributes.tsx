@@ -3,13 +3,12 @@
 import { Stack, Typography } from '@mui/material';
 import React from 'react';
 
-import { useFetchMovie } from '@/apis/movies/api';
-import useMovieIdQueyParams from '@/hooks/movies/item';
 import dayjs from '@/utils/dayjs';
 
+import { useMovieDetail } from '../hooks/detail';
+
 const MovieAttribute: React.FC = ({}) => {
-  const { movieId } = useMovieIdQueyParams();
-  const { detail } = useFetchMovie(movieId);
+  const { detail } = useMovieDetail();
   return (
     <Stack
       direction="row"

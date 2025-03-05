@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Box,
   Button,
@@ -10,12 +12,20 @@ import {
 import React, { useState } from 'react';
 
 import { useFetchMovieReviews } from '@/apis/movies/api';
-import useMovieIdQueyParams from '@/hooks/movies/item';
 import { MovieReview } from '@/types/apis/movies';
 import dayjs from '@/utils/dayjs';
 
+import { useMovieDetail } from '../hooks/detail';
+
 const ReviewItem: React.FC<{ review: MovieReview }> = ({ review }) => {
-  const [isReadmore, setReadmore] = useState(false);
+  const [isReadMore, setIsReadMore] = useState(false);
+  const toggleReadMore = () => setIsReadMore((prev) => !prev);
+
+  const isLongContent = review.content.length > 200;
+  const displayedContent = isReadMore
+    ? review.content
+    : review.content.slice(0, 200) + (isLongContent ? ' ...' : '');
+
   return (
     <React.Fragment>
       <ListItem alignItems="flex-start">
@@ -27,30 +37,15 @@ const ReviewItem: React.FC<{ review: MovieReview }> = ({ review }) => {
             {dayjs(review.updated_at).format('YYYY/MM/DD HH:mm:ss')}
           </Typography>
           <Typography display="flow-root" variant="body2">
-            {isReadmore
-              ? review.content
-              : review.content.slice(0, 200) + ` ...`}
-            {isReadmore ? (
+            {displayedContent}
+            {isLongContent && (
               <Button
-                onClick={() => setReadmore(false)}
+                onClick={toggleReadMore}
                 size="small"
-                sx={{
-                  float: 'right',
-                }}
+                sx={{ float: 'right' }}
                 variant="text"
               >
-                更少
-              </Button>
-            ) : (
-              <Button
-                onClick={() => setReadmore(true)}
-                size="small"
-                sx={{
-                  float: 'right',
-                }}
-                variant="text"
-              >
-                更多
+                {isReadMore ? '更少' : '更多'}
               </Button>
             )}
           </Typography>
@@ -62,7 +57,7 @@ const ReviewItem: React.FC<{ review: MovieReview }> = ({ review }) => {
 };
 
 const MovieReviews: React.FC = () => {
-  const { movieId } = useMovieIdQueyParams();
+  const { movieId } = useMovieDetail();
   const { reviews } = useFetchMovieReviews(movieId);
   if ((reviews?.length ?? 0) === 0) {
     return (

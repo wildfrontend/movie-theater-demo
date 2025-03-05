@@ -3,9 +3,9 @@ import { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
 import { watchlistQueryOptions } from '@/apis/user/query-options';
-import MovieInfo from '@/components/movies/info/main';
-import MoviesSkeleton from '@/components/movies/movies/list/skeleton';
 import Watchlist from '@/components/movies/movies/watchlist';
+import WatchlistSkeleton from '@/components/movies/movies/watchlist/skeleton';
+import PlaySomethingSection from '@/components/movies/play-someting';
 import { getQueryClient } from '@/utils/react-query';
 
 export const metadata: Metadata = {
@@ -31,9 +31,9 @@ const Page: React.FC<{
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<MoviesSkeleton />}>
+      <PlaySomethingSection />
+      <Suspense fallback={<WatchlistSkeleton />}>
         <Watchlist />
-        <MovieInfo />
       </Suspense>
     </HydrationBoundary>
   );

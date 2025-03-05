@@ -4,9 +4,10 @@ import { z } from 'zod';
 import useQueryParams from '../global/query-params';
 
 const useSearhMoviesQueyParams = () => {
-  const { urlSearchParams, setQueryParams } = useQueryParams<{
-    search: string;
-  }>();
+  const { urlSearchParams, setQueryParams, removeQueryParams } =
+    useQueryParams<{
+      search: string;
+    }>();
 
   const search = useMemo(
     () =>
@@ -20,9 +21,16 @@ const useSearhMoviesQueyParams = () => {
   const setSearch = (search: string) => {
     setQueryParams({ search });
   };
+
+  const removeSearch = () => {
+    if (urlSearchParams.has('search')) {
+      removeQueryParams('search');
+    }
+  };
   return {
     search,
     setSearch,
+    removeSearch,
   };
 };
 

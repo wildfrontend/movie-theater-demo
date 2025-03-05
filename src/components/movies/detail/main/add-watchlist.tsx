@@ -5,10 +5,11 @@ import { useMutation } from '@tanstack/react-query';
 
 import { useFetchMovieAccountStates } from '@/apis/movies/api';
 import { addToWatchlist } from '@/apis/user/api';
-import useMovieIdQueyParams from '@/hooks/movies/item';
+
+import { useMovieDetail } from '../hooks/detail';
 
 const AddWatchlist: React.FC = () => {
-  const { movieId } = useMovieIdQueyParams();
+  const { movieId } = useMovieDetail();
 
   const {
     isWatchlist,
