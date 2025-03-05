@@ -8,8 +8,8 @@ import {
   searchMoviesQueryOptions,
 } from '@/apis/movies/query-options';
 import MovieInfo from '@/components/movies/info/main';
-import MoviesSkeleton from '@/components/movies/movies/list/skeleton';
 import SearchResults from '@/components/movies/movies/results';
+import ResultsSkeleton from '@/components/movies/movies/results/skeleton';
 import SearchSection from '@/components/movies/search';
 import { getQueryClient } from '@/utils/react-query';
 
@@ -40,7 +40,7 @@ const Page: React.FC<{
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <SearchSection />
-      <Suspense fallback={<MoviesSkeleton />}>
+      <Suspense fallback={<ResultsSkeleton />}>
         <SearchResults />
         <MovieInfo />
       </Suspense>

@@ -1,12 +1,12 @@
-'use client'
+'use client';
 
-import { useReportWebVitals } from 'next/web-vitals'
+import { useReportWebVitals } from 'next/web-vitals';
 
 const WebVitals: React.FC = () => {
   useReportWebVitals((metric) => {
-    console.log(metric)
-  })
-  return <></>
-}
+    console.log(metric);
+  });
+  return <></>;
+};
 
-export default WebVitals
+export default WebVitals;

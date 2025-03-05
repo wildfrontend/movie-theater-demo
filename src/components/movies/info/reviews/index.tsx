@@ -31,7 +31,7 @@ const ReviewItem: React.FC<{ review: MovieReview }> = ({ review }) => {
             {review.author}
           </Typography>
           <Typography color="text.secondary" variant="caption">
-            {dayjs(review.updated_at).format("YYYY/MM/DD HH:mm:ss")}
+            {dayjs(review.updated_at).format('YYYY/MM/DD HH:mm:ss')}
           </Typography>
           <Typography display="flow-root" variant="body2">
             {displayedContent}
@@ -39,10 +39,10 @@ const ReviewItem: React.FC<{ review: MovieReview }> = ({ review }) => {
               <Button
                 onClick={toggleReadMore}
                 size="small"
-                sx={{ float: "right" }}
+                sx={{ float: 'right' }}
                 variant="text"
               >
-                {isReadMore ? "更少" : "更多"}
+                {isReadMore ? '更少' : '更多'}
               </Button>
             )}
           </Typography>

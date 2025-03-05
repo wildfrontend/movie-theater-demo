@@ -5,7 +5,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
-import { movieDetailQueryOptions } from '@/apis/movies/query-options';
 import useMovieIdQueyParams from '@/hooks/movies/item';
 import type { SearchMovieItem } from '@/types/apis/movies';
 

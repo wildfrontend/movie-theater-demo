@@ -1,6 +1,5 @@
 'use client';
 
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import {
   Button,
   ButtonGroup,
@@ -18,18 +17,20 @@ import useWatchlistQueyParams from '@/hooks/user/watchlist';
 import { WatchlistSortType } from '@/types/apis/user';
 
 import MovieListItem from '../item';
-import MoviesEmpty from '../list/empty';
 import { LoadMoreSkeleton } from '../list/skeleton';
+import WatchlistEmpty from './empty';
+import WatchlistSkeleton from './skeleton';
 
 const Watchlist: React.FC = () => {
-  const { sortBy, setSortBy, removeSortBy } = useWatchlistQueyParams();
+  const { sortBy, setSortBy } = useWatchlistQueyParams();
   const {
     data,
-    fetchNextPage,
+    isFetching,
+
     hasNextPage,
     isFetchingNextPage,
-    isFetched,
     error,
+    fetchNextPage,
   } = useFetchWatchlist({
     params: {
       sort_by: sortBy,
@@ -38,11 +39,14 @@ const Watchlist: React.FC = () => {
 
   let listCount = 1;
 
+  if (isFetching) {
+    return <WatchlistSkeleton />;
+  }
   if (error) {
     return <FailedPanel error={error} />;
   }
-  if (!isFetched) {
-    return <MoviesEmpty />;
+  if ((data?.pages?.[0]?.results?.length ?? 0) === 0) {
+    return <WatchlistEmpty />;
   }
   return (
     <Container maxWidth="lg">
@@ -51,7 +55,7 @@ const Watchlist: React.FC = () => {
           待看清單
         </Typography>
         <Stack direction="row" justifyContent="end">
-          <ButtonGroup variant="contained" aria-label="sort">
+          <ButtonGroup aria-label="sort" variant="contained">
             <Button
               onClick={() => {
                 setSortBy(WatchlistSortType.asc);
@@ -78,18 +82,19 @@ const Watchlist: React.FC = () => {
               );
             });
           })}
-          {hasNextPage && (
-            <InView
-              as="div"
-              onChange={(inView) => {
-                if (inView && hasNextPage && !isFetchingNextPage) {
-                  fetchNextPage();
-                }
-              }}
-            />
-          )}
           {isFetchingNextPage && <LoadMoreSkeleton />}
         </Grid2>
+        {hasNextPage && (
+          <InView
+            as="div"
+            delay={300}
+            onChange={(inView) => {
+              if (inView && hasNextPage && !isFetchingNextPage) {
+                fetchNextPage();
+              }
+            }}
+          />
+        )}
       </Stack>
     </Container>
   );

@@ -6,7 +6,8 @@ import FailedPanel from '@/components/error/failed';
 
 import MovieListItem from '../item';
 import MoviesEmpty from '../list/empty';
-import MoviesSkeleton, { LoadMoreSkeleton } from '../list/skeleton';
+import { LoadMoreSkeleton } from '../list/skeleton';
+import PopluarSkeleton from './skeleton';
 
 const ResultsEmpty: React.FC = () => {
   const {
@@ -23,7 +24,7 @@ const ResultsEmpty: React.FC = () => {
     return <FailedPanel error={error} />;
   }
   if (isFetching) {
-    return <MoviesSkeleton />
+    return <PopluarSkeleton />;
   }
   if (data?.pages.length === 0) {
     return <MoviesEmpty />;
@@ -44,23 +45,19 @@ const ResultsEmpty: React.FC = () => {
               );
             });
           })}
-          {hasNextPage && (
-            <InView
-              as="div"
-              onChange={(inView) => {
-                if (inView && hasNextPage && !isFetchingNextPage) {
-                  fetchNextPage();
-                }
-              }}
-            />
-          )}
           {isFetchingNextPage && <LoadMoreSkeleton />}
-          {!hasNextPage && (
-            <Typography component="span" fontWeight="bold" variant="h4">
-              已經顯示所有結果
-            </Typography>
-          )}
         </Grid2>
+        {hasNextPage && (
+          <InView
+            as="div"
+            delay={300}
+            onChange={(inView) => {
+              if (inView && hasNextPage && !isFetchingNextPage) {
+                fetchNextPage();
+              }
+            }}
+          />
+        )}
       </Stack>
     </Container>
   );
