@@ -1,18 +1,49 @@
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
-import { Metadata } from 'next';
+import type { Metadata, ResolvingMetadata } from 'next';
 import React from 'react';
 
 import {
   movieDetailQueryOptions,
   movieVideosQueryOptions,
 } from '@/apis/movies/query-options';
+import { getMovieDetailBySSR } from '@/apis/movies/server';
 import MovieModalPage from '@/components/movies/detail/modal-page';
 import { getQueryClient } from '@/utils/react-query';
 
-export const metadata: Metadata = {
-  title: 'The Movie Datebase - Detail',
-  description: 'Interview demo',
+type Props = {
+  params: Promise<{ movieId: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const { movieId } = await params;
+
+  // fetch data
+  const movie = await getMovieDetailBySSR(movieId);
+
+  // optionally access and extend (rather than replace) parent metadata
+  let previousImages = undefined;
+  if (movie?.backdrop_path) {
+    previousImages = {
+      url: `https://image.tmdb.org/t/p/w780${movie?.backdrop_path}`,
+    };
+  }
+
+  return {
+    title: movie?.title,
+    description:
+      (movie?.overview.length ?? 0) > 150
+        ? movie?.overview.slice(0, 150) + `...`
+        : movie?.overview,
+    openGraph: {
+      images: previousImages,
+    },
+  };
+}
 
 const Page: React.FC<{
   params: Promise<{

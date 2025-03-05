@@ -9,8 +9,7 @@ import PlaySomethingSection from '@/components/movies/play-someting';
 import { getQueryClient } from '@/utils/react-query';
 
 export const metadata: Metadata = {
-  title: 'The Movie Datebase - Watchlist',
-  description: 'Interview demo',
+  title: 'Watchlist',
 };
 
 const Page: React.FC<{
