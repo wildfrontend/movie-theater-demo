@@ -35,6 +35,7 @@ const Page: React.FC<{
       <Suspense fallback={<WatchlistSkeleton />}>
         <Watchlist />
       </Suspense>
+      
     </HydrationBoundary>
   );
 };

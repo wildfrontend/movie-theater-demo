@@ -14,6 +14,12 @@ const MovieListItem: React.FC<{
   movie: SearchMovieItem;
   listCount: number;
 }> = ({ movie, listCount }) => {
+  const [isBrowser, setIsBrowser] = useState(false);
+
+  useEffect(() => {
+    setIsBrowser(typeof window !== 'undefined');
+  }, []);
+
   const [imageError, setImageError] = useState(false);
   return (
     <>
@@ -23,8 +29,8 @@ const MovieListItem: React.FC<{
           {...{
             href: {
               pathname: generateMovieHerf(movie.id),
-              search: typeof window !== 'undefined' ? window.location.search : undefined,
-            }
+              search: isBrowser ? window.location.search : undefined,
+            },
           }}
         >
           <CardMedia
