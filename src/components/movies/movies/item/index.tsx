@@ -14,23 +14,6 @@ const MovieListItem: React.FC<{
   movie: SearchMovieItem;
   listCount: number;
 }> = ({ movie, listCount }) => {
-  const [isBrowser, setIsBrowser] = useState(false);
-
-  useEffect(() => {
-    setIsBrowser(typeof window !== 'undefined');
-  }, []);
-
-  const movieLink = (moveId: number) => {
-    const baseLink = generateMovieHerf(moveId); // 你想要導航的頁面
-    if (isBrowser) {
-      return {
-        pathname: baseLink,
-        search: window.location.search,
-      };
-    }
-    return baseLink;
-  };
-
   const [imageError, setImageError] = useState(false);
   return (
     <>
@@ -38,7 +21,10 @@ const MovieListItem: React.FC<{
         <CardActionArea
           LinkComponent={Link}
           {...{
-            href: movieLink(movie.id),
+            href: {
+              pathname: generateMovieHerf(movie.id),
+              search: typeof window !== 'undefined' ? window.location.search : undefined,
+            }
           }}
         >
           <CardMedia
