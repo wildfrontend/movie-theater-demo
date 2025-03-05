@@ -5,6 +5,7 @@ const Layout: React.FC<PropsWithChildren<{ modal: React.ReactNode }>> = ({
   children,
   modal,
 }) => {
+  console.log("modal", !!modal)
   return (
     <>
       {children}

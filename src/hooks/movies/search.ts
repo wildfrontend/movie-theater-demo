@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import useQueryParams from '../global/query-params';
 
-const useSearhMoviesQueyParams = () => {
+const useSearchMoviesQueyParams = () => {
   const { urlSearchParams, setQueryParams, removeQueryParams } =
     useQueryParams<{
       search: string;
@@ -18,6 +18,7 @@ const useSearhMoviesQueyParams = () => {
         .parse(urlSearchParams.get('search')),
     [urlSearchParams]
   );
+
   const setSearch = (search: string) => {
     setQueryParams({ search });
   };
@@ -34,4 +35,4 @@ const useSearhMoviesQueyParams = () => {
   };
 };
 
-export default useSearhMoviesQueyParams;
+export default useSearchMoviesQueyParams;

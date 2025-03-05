@@ -3,7 +3,8 @@
 import { Card, CardActionArea, CardMedia } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import React, { useState } from 'react';
 
 import type { SearchMovieItem } from '@/types/apis/movies';
 import { generateMovieHerf } from '@/utils/link';
@@ -14,12 +15,7 @@ const MovieListItem: React.FC<{
   movie: SearchMovieItem;
   listCount: number;
 }> = ({ movie, listCount }) => {
-  const [isBrowser, setIsBrowser] = useState(false);
-
-  useEffect(() => {
-    setIsBrowser(typeof window !== 'undefined');
-  }, []);
-
+  const searchParams = useSearchParams();
   const [imageError, setImageError] = useState(false);
   return (
     <>
@@ -29,9 +25,8 @@ const MovieListItem: React.FC<{
           {...{
             href: {
               pathname: generateMovieHerf(movie.id),
-              search: isBrowser ? window.location.search : undefined,
+              search: searchParams.toString(),
             },
-            scroll: false
           }}
         >
           <CardMedia

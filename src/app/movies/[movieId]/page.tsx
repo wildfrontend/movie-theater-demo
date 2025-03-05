@@ -19,7 +19,7 @@ import MovieAttribute from '@/components/movies/detail/main/attributes';
 import MovieGenres from '@/components/movies/detail/main/genres';
 import MovieHeadline from '@/components/movies/detail/main/headline';
 import MovieOverview from '@/components/movies/detail/main/overview';
-// import RemoveQueryParams from '@/components/movies/detail/main/remove-query';
+import ScrollTop from '@/components/movies/detail/main/scroll-top';
 import MovieStatus from '@/components/movies/detail/main/status';
 import MovieTitle from '@/components/movies/detail/main/title';
 import MovieReviews from '@/components/movies/detail/reviews';
@@ -44,6 +44,7 @@ const Page: React.FC<{
   ]);
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
+      <ScrollTop />
       <Container
         maxWidth="md"
         sx={{
