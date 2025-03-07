@@ -25,3 +25,4 @@ export const useFetchWatchlist = ({
   const query = useInfiniteQuery(watchlistQueryOptions({ params }));
   return query;
 };
+

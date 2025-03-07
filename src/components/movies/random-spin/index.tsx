@@ -1,12 +1,21 @@
 'use client';
 
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
+import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 
-import MovieSlider from './silder';
+import RandomSpinSkeleton from './skeleton';
+
+const MovieSlider = dynamic(() => import('./silder'), {
+  ssr: false,
+  loading: () => {
+    return <RandomSpinSkeleton />;
+  },
+});
 
 const RandomPanel: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+
   if (isOpen) {
     return <MovieSlider />;
   }

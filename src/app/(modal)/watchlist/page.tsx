@@ -5,7 +5,7 @@ import React, { Suspense } from 'react';
 import { watchlistQueryOptions } from '@/apis/user/query-options';
 import Watchlist from '@/components/movies/movies/watchlist';
 import WatchlistSkeleton from '@/components/movies/movies/watchlist/skeleton';
-import PlaySomethingSection from '@/components/movies/play-someting';
+import PlaySomethingSection from '@/components/movies/random-spin';
 import { getQueryClient } from '@/utils/react-query';
 
 export const metadata: Metadata = {
