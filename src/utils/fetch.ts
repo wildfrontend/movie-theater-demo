@@ -4,7 +4,7 @@ const tmdbApiUrl = 'https://api.themoviedb.org/3';
 
 const serverFetch = async <T>(url: string, options: RequestInit = {}) => {
   const headers = {
-    'Authorization': `Bearer ${appConfig.tmdb.apiToken}`,
+    Authorization: `Bearer ${appConfig.tmdb.apiToken}`,
     'Content-Type': 'application/json',
     ...options.headers,
   };

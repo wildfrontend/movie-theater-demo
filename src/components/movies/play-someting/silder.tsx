@@ -11,7 +11,6 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from 'react';
 import 'swiper/css';
@@ -70,7 +69,7 @@ const useControlSpin = () => {
     }, intervalDelay); // Use the adjusted interval delay
 
     return () => clearInterval(interval);
-  }, [autoplayEnabled, isAccelerating]);
+  }, [autoplayEnabled, speed, isAccelerating]);
 
   const restartSpin = useCallback(() => {
     setSpeed(initialSpeed);
@@ -120,7 +119,7 @@ const MovieSlider: React.FC = () => {
   const { speed, random, autoplayEnabled, restartSpin } = useControlSpin();
   const { randomMovies } = useRandomMovies({ random });
   return (
-    <Stack direction="column" alignItems="center" width="100%" spacing="16px">
+    <Stack alignItems="center" direction="column" spacing="16px" width="100%">
       <Box
         sx={{
           width: '100%',
@@ -131,18 +130,12 @@ const MovieSlider: React.FC = () => {
         }}
       >
         <Swiper
-          modules={[Autoplay, EffectCoverflow, FreeMode]}
-          effect="coverflow"
-          loop
-          centeredSlides
-          freeMode
           autoplay={{
             delay: 0,
             disableOnInteraction: false,
             pauseOnMouseEnter: false,
           }}
-          speed={speed}
-          slidesPerView="auto"
+          centeredSlides
           coverflowEffect={{
             rotate: 0,
             stretch: 100,
@@ -150,11 +143,17 @@ const MovieSlider: React.FC = () => {
             modifier: 1.5,
             slideShadows: false,
           }}
+          effect="coverflow"
+          freeMode
+          loop
+          modules={[Autoplay, EffectCoverflow, FreeMode]}
+          slidesPerView="auto"
+          speed={speed}
         >
           <SwiperControl enableAutoPlay={autoplayEnabled} />
           {randomMovies.map((item, i) => {
             return (
-              <SwiperSlide>
+              <SwiperSlide key={item.id}>
                 <Card
                   sx={{
                     width: '370px',
@@ -189,10 +188,10 @@ const MovieSlider: React.FC = () => {
       <Box>
         <Button
           disabled={autoplayEnabled}
+          onClick={restartSpin}
           sx={{
             visibility: autoplayEnabled ? 'hidden' : undefined,
           }}
-          onClick={restartSpin}
           variant="contained"
         >
           不喜歡?再選一次

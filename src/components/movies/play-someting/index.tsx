@@ -23,10 +23,10 @@ const RandomPanel: React.FC = () => {
       <Stack direction="row" justifyContent="center">
         <Box>
           <Button
-            variant="contained"
             onClick={() => {
               setIsOpen(true);
             }}
+            variant="contained"
           >
             隨機挑選
           </Button>
@@ -43,8 +43,8 @@ const PlaySomethingSection: React.FC = () => {
         maxWidth="lg"
         sx={{
           height: {
-            xs: "280px",
-            md: "360px"
+            xs: '280px',
+            md: '360px',
           },
           display: 'flex',
           flexDirection: 'column',

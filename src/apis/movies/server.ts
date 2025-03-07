@@ -6,7 +6,7 @@ export const getMovieDetailBySSR = async (movieId: PathParamId) => {
     const movie = await serverFetch<GetMovieDetailResponse>(
       `/movie/${movieId}`,
       {
-        cache:"reload"
+        cache: 'reload',
       }
     );
     return movie;

@@ -52,4 +52,4 @@ const MovieListItem: React.FC<{
   );
 };
 
-export default React.memo(MovieListItem)
+export default React.memo(MovieListItem);

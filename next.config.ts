@@ -18,13 +18,12 @@ const nextConfig: NextConfig = {
       { hostname: 'media.themoviedb.org' },
     ],
   },
-  logging:{
-    fetches:{
-      fullUrl:true,
-      hmrRefreshes:true
-    }
-  }
+  logging: {
+    fetches: {
+      fullUrl: true,
+      hmrRefreshes: true,
+    },
+  },
 };
 
-// pigment not work with sx breakpoints in mui
-export default nextConfig;
+module.exports = nextConfig;
