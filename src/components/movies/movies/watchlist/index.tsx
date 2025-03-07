@@ -21,8 +21,20 @@ import { LoadMoreSkeleton } from '../list/skeleton';
 import WatchlistEmpty from './empty';
 import WatchlistSkeleton from './skeleton';
 
-const Watchlist: React.FC = () => {
+export const useWatchlist = () => {
   const { sortBy, setSortBy } = useWatchlistQueyParams();
+  const query = useFetchWatchlist({
+    params: {
+      sort_by: sortBy,
+    },
+  });
+  return {
+    ...query,
+    setSortBy,
+  };
+};
+
+const Watchlist: React.FC = () => {
   const {
     data,
     isLoading,
@@ -30,11 +42,8 @@ const Watchlist: React.FC = () => {
     isFetchingNextPage,
     error,
     fetchNextPage,
-  } = useFetchWatchlist({
-    params: {
-      sort_by: sortBy,
-    },
-  });
+    setSortBy,
+  } = useWatchlist();
 
   let listCount = 1;
 
