@@ -1,18 +1,5 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardActionArea,
-  CardMedia,
-  Stack,
-} from '@mui/material';
-import Image from 'next/image';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { Box, Button, Stack } from '@mui/material';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-coverflow';
@@ -23,6 +10,7 @@ import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { MovieItem } from '@/types/apis/movies';
 
 import { useWatchlist } from '../movies/watchlist';
+import MovieCard from './item';
 
 const generateRandomMovies = (movies: MovieItem[], random: number) => {
   return [...movies]
@@ -35,12 +23,12 @@ const generateRandomMovies = (movies: MovieItem[], random: number) => {
 };
 
 const useControlSpin = () => {
-  const initialSpeed = 60; // Increased initial speed for smoother start
-  const minSpeed = 540; // Decreased min speed for more noticeable acceleration
-  const maxSpeed = 1080; // Increased max speed for longer spin
-  const accelerationFactor = 0.9;
+  const initialSpeed = 120;
+  const minSpeed = 540;
+  const maxSpeed = 1080;
+  const accelerationFactor = 0.8;
   const decayFactor = 1.2;
-  const intervalDelay = 30;
+  const intervalDelay = 20;
 
   const [speed, setSpeed] = useState(initialSpeed);
   const [autoplayEnabled, setAutoplayEnabled] = useState(true);
@@ -99,7 +87,6 @@ const SwiperControl: React.FC<{ enableAutoPlay: boolean }> = ({
 
 const useRandomMovies = ({ random }: { random: number }) => {
   const { data, isFetching } = useWatchlist();
-
   const randomMovies = useMemo(() => {
     if (!data?.pages) return [];
     return generateRandomMovies(
@@ -125,7 +112,7 @@ const MovieSlider: React.FC = () => {
           width: '100%',
           overflow: 'hidden',
           ['.swiper-slide']: {
-            width: '370px',
+            width: '360px',
           },
         }}
       >
@@ -154,32 +141,7 @@ const MovieSlider: React.FC = () => {
           {randomMovies.map((item, i) => {
             return (
               <SwiperSlide key={item.id}>
-                <Card
-                  sx={{
-                    width: '370px',
-                    aspectRatio: 16 / 9,
-                    position: 'relative',
-                  }}
-                >
-                  <CardActionArea>
-                    <CardMedia
-                      sx={{
-                        width: '370px',
-                        aspectRatio: 16 / 9,
-                        position: 'relative',
-                      }}
-                    >
-                      <Image
-                        alt={item.title}
-                        fill
-                        loading={i === 0 ? 'eager' : 'lazy'}
-                        priority={i === 0}
-                        src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
-                        unoptimized
-                      />
-                    </CardMedia>
-                  </CardActionArea>
-                </Card>
+                <MovieCard item={item} />
               </SwiperSlide>
             );
           })}

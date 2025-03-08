@@ -11,6 +11,7 @@ import MuiThemeProvider from '@/components/theme';
 import WebVitals from '@/components/web-vitals';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://movie-theater-demo.vercel.app'),
   title: {
     template: 'The Movie Database - %s',
     default: 'The Movie Database - Explore the World of Movies',

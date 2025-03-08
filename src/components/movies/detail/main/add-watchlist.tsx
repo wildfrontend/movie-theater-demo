@@ -34,7 +34,7 @@ const AddWatchlist: React.FC = () => {
   const onClick = () => {
     mutate.mutate({ movieId, watchlist: !isWatchlist });
   };
-  
+
   return (
     <>
       <Button
