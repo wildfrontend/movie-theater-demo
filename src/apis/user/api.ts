@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 
 import { GetWatchlistQueryParams } from '@/types/apis/user';
 import axios from '@/utils/axios';
@@ -25,4 +25,3 @@ export const useFetchWatchlist = ({
   const query = useInfiniteQuery(watchlistQueryOptions({ params }));
   return query;
 };
-
