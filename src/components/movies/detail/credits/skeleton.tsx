@@ -1,5 +1,4 @@
 import { Skeleton, Stack } from '@mui/material';
-import { times } from 'lodash-es';
 
 import { ScrollBox } from './styles';
 
@@ -14,14 +13,9 @@ const MovieCreditsSkeleton: React.FC = () => {
           paddingBottom: '8px',
         }}
       >
-        {times(6).map((i) => {
+        {Array.from({ length: 6 }).map((_, i) => {
           return (
-            <Skeleton
-              height={215}
-              key={i}
-              variant="rounded"
-              width={128}
-            ></Skeleton>
+            <Skeleton height={215} key={i} variant="rounded" width={128} />
           );
         })}
       </Stack>
