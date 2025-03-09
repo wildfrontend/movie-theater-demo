@@ -7,7 +7,7 @@ export const MovieItemSkeleton: React.FC = () => {
   );
 };
 
-export const LoadMoreSkeleton: React.FC = () => {
+const LoadMoreSkeleton: React.FC = () => {
   return (
     <>
       {Array.from({ length: 4 }).map((item, i) => {
@@ -20,3 +20,5 @@ export const LoadMoreSkeleton: React.FC = () => {
     </>
   );
 };
+
+export default LoadMoreSkeleton;

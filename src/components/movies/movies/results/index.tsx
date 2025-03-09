@@ -4,22 +4,22 @@ import {
   Button,
   ButtonGroup,
   Container,
+  Grid2,
   Stack,
   Typography,
 } from '@mui/material';
-import { Grid2 } from '@mui/material';
 import React, { useCallback, useMemo, useState } from 'react';
 import { InView } from 'react-intersection-observer';
 
 import { useFetchSearchMovies } from '@/apis/movies/api';
 import FailedPanel from '@/components/error/failed';
+import { SearchMoviesSortType } from '@/constants/enums/movies';
 import useSearchMoviesQueyParams from '@/hooks/movies/search';
-import { SearchMoviesSortType } from '@/types/apis/movies';
 import dayjs from '@/utils/dayjs';
 
 import MovieListItem from '../item';
 import MoviesEmpty from '../list/empty';
-import { LoadMoreSkeleton } from '../list/skeleton';
+import LoadMoreSkeleton from '../list/skeleton';
 import ResultsEmpty from '../popluar';
 import ResultsSkeleton from './skeleton';
 

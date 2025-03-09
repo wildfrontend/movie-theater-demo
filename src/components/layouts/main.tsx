@@ -2,7 +2,7 @@ import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 import Link from 'next/link';
 import type { PropsWithChildren } from 'react';
 
-import pagePath from '@/constants/path';
+import pagePath from '@/constants/global/path';
 
 const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (

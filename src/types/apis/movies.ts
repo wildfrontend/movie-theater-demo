@@ -30,11 +30,6 @@ export type GetPopularMoviesResponse = {
  * ANCHOR Search movies
  */
 
-export enum SearchMoviesSortType {
-  newest = 'newest',
-  oldest = 'oldest',
-}
-
 export type GetSearchMoviesQueryParams = UrlQueryParams<{
   query: string;
   page: number;

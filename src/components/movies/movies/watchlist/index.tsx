@@ -4,20 +4,20 @@ import {
   Button,
   ButtonGroup,
   Container,
+  Grid2,
   Stack,
   Typography,
 } from '@mui/material';
-import { Grid2 } from '@mui/material';
 import React from 'react';
 import { InView } from 'react-intersection-observer';
 
 import { useFetchWatchlist } from '@/apis/user/api';
 import FailedPanel from '@/components/error/failed';
+import { WatchlistSortType } from '@/constants/enums/movies';
 import useWatchlistQueyParams from '@/hooks/user/watchlist';
-import { WatchlistSortType } from '@/types/apis/user';
 
 import MovieListItem from '../item';
-import { LoadMoreSkeleton } from '../list/skeleton';
+import LoadMoreSkeleton from '../list/skeleton';
 import WatchlistEmpty from './empty';
 import WatchlistSkeleton from './skeleton';
 

@@ -6,7 +6,7 @@ import FailedPanel from '@/components/error/failed';
 
 import MovieListItem from '../item';
 import MoviesEmpty from '../list/empty';
-import { LoadMoreSkeleton } from '../list/skeleton';
+import LoadMoreSkeleton from '../list/skeleton';
 import PopluarSkeleton from './skeleton';
 
 const ResultsEmpty: React.FC = () => {

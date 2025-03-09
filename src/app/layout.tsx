@@ -1,5 +1,4 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
-import '@pigment-css/react/styles.css';
 import type { Metadata } from 'next';
 import type { PropsWithChildren } from 'react';
 import React from 'react';
@@ -8,7 +7,6 @@ import logoCover from '@/assets/logo/conver.png';
 import MainLayout from '@/components/layouts/main';
 import ReactQueryProvider from '@/components/react-query/provider';
 import MuiThemeProvider from '@/components/theme';
-import WebVitals from '@/components/web-vitals';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://movie-theater-demo.vercel.app'),
@@ -29,7 +27,6 @@ const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <html suppressHydrationWarning>
       <body>
-        <WebVitals />
         <ReactQueryProvider>
           <AppRouterCacheProvider>
             <MuiThemeProvider>

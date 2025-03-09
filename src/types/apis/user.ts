@@ -1,9 +1,7 @@
-import { MovieItem } from './movies';
+import { WatchlistSortType } from '@/constants/enums/movies';
 
-export enum WatchlistSortType {
-  asc = 'created_at.asc',
-  desc = 'created_at.desc',
-}
+import type { MovieItem } from './movies';
+
 export type GetWatchlistQueryParams = UrlQueryParams<{
   language: string;
   page: string;

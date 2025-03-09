@@ -1,6 +1,4 @@
-import appConfig from '@/constants/config';
-
-const tmdbApiUrl = 'https://api.themoviedb.org/3';
+import appConfig from '@/constants/global/config';
 
 const serverFetch = async <T>(url: string, options: RequestInit = {}) => {
   const headers = {
@@ -14,7 +12,7 @@ const serverFetch = async <T>(url: string, options: RequestInit = {}) => {
     headers,
   };
   try {
-    const response = await fetch(`${tmdbApiUrl}${url}`, fetchOptions);
+    const response = await fetch(`${appConfig.tmdb.v3api}${url}`, fetchOptions);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
