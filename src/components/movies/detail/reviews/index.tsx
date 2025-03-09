@@ -16,6 +16,7 @@ import { MovieReview } from '@/types/apis/movies';
 import dayjs from '@/utils/global/dayjs';
 
 import { useMovieDetail } from '../hooks/detail';
+import MovieReviewsSkeleton from './skeleton';
 
 const ReviewItem: React.FC<{ review: MovieReview }> = ({ review }) => {
   const [isReadMore, setIsReadMore] = useState(false);
@@ -58,7 +59,11 @@ const ReviewItem: React.FC<{ review: MovieReview }> = ({ review }) => {
 
 const MovieReviews: React.FC = () => {
   const { movieId } = useMovieDetail();
-  const { reviews } = useFetchMovieReviews(movieId);
+  const { reviews, isFetching } = useFetchMovieReviews(movieId);
+
+  if (isFetching) {
+    return <MovieReviewsSkeleton />;
+  }
   if ((reviews?.length ?? 0) === 0) {
     return (
       <Box>

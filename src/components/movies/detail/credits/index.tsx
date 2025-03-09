@@ -10,6 +10,7 @@ import { ScrollBox } from './styles';
 const defaultImg = 'https://fakeimg.pl/138x175';
 const MovieCredits: React.FC = () => {
   const { cast, isFetching } = useMovieCredits();
+
   if (isFetching) {
     return <MovieCreditsSkeleton />;
   }

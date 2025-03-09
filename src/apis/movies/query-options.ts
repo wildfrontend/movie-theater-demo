@@ -70,7 +70,7 @@ export const searchMoviesQueryOptions = ({
 
 export const movieDetailQueryOptions = (movieId?: PathParamId) => {
   return queryOptions({
-    queryKey: ['movies', 'movie', movieId],
+    queryKey: ['movies', 'movie', movieId ? `${movieId}` : undefined],
     queryFn: async ({ signal }) => {
       const res = await axios.get<GetMovieDetailResponse>(`/movie/${movieId}`, {
         signal,
@@ -86,7 +86,12 @@ export const movieDetailQueryOptions = (movieId?: PathParamId) => {
 
 export const movieCreditQueryOptions = (movieId?: PathParamId) =>
   queryOptions({
-    queryKey: ['movies', 'movie', 'credits', movieId],
+    queryKey: [
+      'movies',
+      'movie',
+      'credits',
+      movieId ? `${movieId}` : undefined,
+    ],
     queryFn: async ({ signal }) => {
       const res = await axios.get<GetMovieCreditsResponse>(
         `/movie/${movieId}/credits`,
@@ -104,7 +109,12 @@ export const movieCreditQueryOptions = (movieId?: PathParamId) =>
 
 export const movieReviewsQueryOptions = (movieId?: PathParamId) =>
   queryOptions({
-    queryKey: ['movies', 'movie', 'reviews', movieId],
+    queryKey: [
+      'movies',
+      'movie',
+      'reviews',
+      movieId ? `${movieId}` : undefined,
+    ],
     queryFn: async ({ signal }) => {
       const res = await axios.get<GetMovieReviewsResponse>(
         `/movie/${movieId}/reviews`,
@@ -119,7 +129,7 @@ export const movieReviewsQueryOptions = (movieId?: PathParamId) =>
 
 export const movieVideosQueryOptions = (movieId?: PathParamId) =>
   queryOptions({
-    queryKey: ['movies', 'movie', 'videos', movieId],
+    queryKey: ['movies', 'movie', 'videos', movieId ? `${movieId}` : undefined],
     queryFn: async ({ signal }) => {
       const res = await axios.get<GetMovieVideosResponse>(
         `/movie/${movieId}/videos`,
@@ -134,7 +144,7 @@ export const movieVideosQueryOptions = (movieId?: PathParamId) =>
 
 export const movieAccountStatesQueryOptions = (movieId?: PathParamId) =>
   queryOptions({
-    queryKey: ['movies', 'movie', 'status', movieId],
+    queryKey: ['movies', 'movie', 'status', movieId ? `${movieId}` : undefined],
     queryFn: async ({ signal }) => {
       const res = await axios.get<GetMovieAccountStatusResponse>(
         `/movie/${movieId}/account_states`,

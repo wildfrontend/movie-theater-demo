@@ -2,33 +2,34 @@
 
 import { Box, Skeleton, Stack } from '@mui/material';
 import Image from 'next/image';
-import { useState } from 'react';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 
 import { useFetchMovieVideos } from '@/apis/movies/api';
+import sizes from '@/utils/image/sizes';
+import { tmdbBackdropLoader } from '@/utils/image/tmdb';
 
 import { useMovieDetail } from '../hooks/detail';
 import AddWatchlist from './add-watchlist';
 
-const defaultImg = 'https://fakeimg.pl/400x225?text=Oops';
+const defaultImg = 'https://fakeimg.pl/774x435?text=Oops';
 
 const MovieBackdrop: React.FC<{ alt?: string; url?: string | null }> = ({
   alt,
   url,
 }) => {
-  const [imageError, setImageError] = useState(false);
   return (
     <Image
       alt={alt ?? 'noalt'}
       fill
       loading="eager"
       onError={(e) => {
-        setImageError(true);
+        e.currentTarget.src = defaultImg;
       }}
-      src={imageError ? defaultImg : `https://image.tmdb.org/t/p/w780${url}`}
+      src={url ?? ''}
+      sizes={sizes('60vw', '780px')}
       style={{ objectFit: 'cover' }}
-      unoptimized
+      loader={tmdbBackdropLoader}
     />
   );
 };
@@ -47,7 +48,7 @@ const MovieHeadline: React.FC = () => {
       {trailer ? (
         <LiteYouTubeEmbed
           id={trailer?.key}
-          poster="maxresdefault"
+          poster="hqdefault"
           title={trailer?.name}
         />
       ) : (

@@ -11,17 +11,36 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { InView } from 'react-intersection-observer';
 
-import MovieCredits from '@/components/movies/detail/credits';
+import MovieCreditsSkeleton from '@/components/movies/detail/credits/skeleton';
 import MovieAttribute from '@/components/movies/detail/main/attributes';
 import MovieGenres from '@/components/movies/detail/main/genres';
 import MovieHeadline from '@/components/movies/detail/main/headline';
 import MovieOverview from '@/components/movies/detail/main/overview';
 import MovieStatus from '@/components/movies/detail/main/status';
 import MovieTitle from '@/components/movies/detail/main/title';
-import MovieReviews from '@/components/movies/detail/reviews';
+import MovieReviewsSkeleton from '@/components/movies/detail/reviews/skeleton';
+
+const MovieCredits = dynamic(
+  () => import('@/components/movies/detail/credits'),
+  {
+    loading: () => {
+      return <MovieCreditsSkeleton />;
+    },
+  }
+);
+const MovieReviews = dynamic(
+  () => import('@/components/movies/detail/reviews'),
+  {
+    loading: () => {
+      return <MovieReviewsSkeleton />;
+    },
+  }
+);
 
 const MovieModalPage: React.FC = () => {
   const router = useRouter();
@@ -66,14 +85,30 @@ const MovieModalPage: React.FC = () => {
             概要
           </Typography>
           <MovieOverview />
-          <Typography fontWeight="bold" variant="h5">
-            演出
-          </Typography>
-          <MovieCredits />
-          <Typography fontWeight="bold" variant="h5">
-            評論
-          </Typography>
-          <MovieReviews />
+          <InView delay={300} triggerOnce>
+            {({ inView, ref, entry }) => {
+              return (
+                <>
+                  <Typography ref={ref} fontWeight="bold" variant="h5">
+                    演出
+                  </Typography>
+                  {inView ? <MovieCredits /> : <></>}
+                </>
+              );
+            }}
+          </InView>
+          <InView delay={300} triggerOnce>
+            {({ inView, ref, entry }) => {
+              return (
+                <>
+                  <Typography ref={ref} fontWeight="bold" variant="h5">
+                    評論
+                  </Typography>
+                  {inView ? <MovieReviews /> : <></>}
+                </>
+              );
+            }}
+          </InView>
         </Stack>
       </DialogContent>
     </Dialog>

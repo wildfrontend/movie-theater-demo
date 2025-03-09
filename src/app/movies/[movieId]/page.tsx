@@ -11,7 +11,9 @@ import { Metadata, ResolvingMetadata } from 'next';
 import React from 'react';
 
 import {
+  movieCreditQueryOptions,
   movieDetailQueryOptions,
+  movieReviewsQueryOptions,
   movieVideosQueryOptions,
 } from '@/apis/movies/query-options';
 import { getMovieDetailBySSR } from '@/apis/movies/server';
@@ -69,7 +71,10 @@ const Page: React.FC<{
   await Promise.all([
     queryClient.prefetchQuery(movieDetailQueryOptions(movieId)),
     queryClient.prefetchQuery(movieVideosQueryOptions(movieId)),
+    queryClient.prefetchQuery(movieCreditQueryOptions(movieId)),
+    queryClient.prefetchQuery(movieReviewsQueryOptions(movieId)),
   ]);
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ScrollTop />
