@@ -4,7 +4,7 @@ import {
   GetWatchlistQueryParams,
   GetWatchlistResponse,
 } from '@/types/apis/user';
-import axios from '@/utils/axios';
+import axios from '@/utils/global/axios';
 
 export const watchlistQueryOptions = ({
   params,

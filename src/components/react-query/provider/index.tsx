@@ -4,7 +4,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React, { type PropsWithChildren } from 'react';
 
-import { getQueryClient } from '@/utils/react-query';
+import { getQueryClient } from '@/utils/global/react-query';
 
 // NEVER DO THIS:
 // const queryClient = new QueryClient()

@@ -11,7 +11,7 @@ import { useSearchParams } from 'next/navigation';
 import React from 'react';
 
 import { MovieItem } from '@/types/apis/movies';
-import { generateMovieHerf } from '@/utils/link';
+import { generateMovieHerf } from '@/utils/global/link';
 
 const MovieCard: React.FC<{ item: MovieItem }> = ({ item }) => {
   const searchParams = useSearchParams();

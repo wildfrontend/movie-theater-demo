@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
 
 import type { SearchMovieItem } from '@/types/apis/movies';
-import { generateMovieHerf } from '@/utils/link';
+import { generateMovieHerf } from '@/utils/global/link';
 
 const defaultImg = 'https://fakeimg.pl/154x220';
 

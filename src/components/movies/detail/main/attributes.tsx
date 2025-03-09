@@ -3,7 +3,7 @@
 import { Stack, Typography } from '@mui/material';
 import React from 'react';
 
-import dayjs from '@/utils/dayjs';
+import dayjs from '@/utils/global/dayjs';
 
 import { useMovieDetail } from '../hooks/detail';
 

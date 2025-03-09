@@ -24,7 +24,7 @@ import ScrollTop from '@/components/movies/detail/main/scroll-top';
 import MovieStatus from '@/components/movies/detail/main/status';
 import MovieTitle from '@/components/movies/detail/main/title';
 import MovieReviews from '@/components/movies/detail/reviews';
-import { getQueryClient } from '@/utils/react-query';
+import { getQueryClient } from '@/utils/global/react-query';
 
 type Props = {
   params: Promise<{ movieId: string }>;
@@ -35,12 +35,11 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-
   const { movieId } = await params;
   const movie = await getMovieDetailBySSR(movieId);
 
   let previousImages = undefined;
-  
+
   if (movie?.backdrop_path) {
     previousImages = {
       url: `https://image.tmdb.org/t/p/w780${movie?.backdrop_path}`,

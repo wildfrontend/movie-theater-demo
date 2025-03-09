@@ -15,7 +15,7 @@ import { useFetchSearchMovies } from '@/apis/movies/api';
 import FailedPanel from '@/components/error/failed';
 import { SearchMoviesSortType } from '@/constants/enums/movies';
 import useSearchMoviesQueyParams from '@/hooks/movies/search';
-import dayjs from '@/utils/dayjs';
+import dayjs from '@/utils/global/dayjs';
 
 import MovieListItem from '../item';
 import MoviesEmpty from '../list/empty';

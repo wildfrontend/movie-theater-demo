@@ -10,7 +10,7 @@ import {
   GetSearchMoviesQueryParams,
   GetSearchMoviesResponse,
 } from '@/types/apis/movies';
-import axios from '@/utils/axios';
+import axios from '@/utils/global/axios';
 
 export const popularMoviesQueryOptions = () => {
   return infiniteQueryOptions({

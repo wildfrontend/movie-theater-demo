@@ -13,7 +13,7 @@ import React, { useState } from 'react';
 
 import { useFetchMovieReviews } from '@/apis/movies/api';
 import { MovieReview } from '@/types/apis/movies';
-import dayjs from '@/utils/dayjs';
+import dayjs from '@/utils/global/dayjs';
 
 import { useMovieDetail } from '../hooks/detail';
 

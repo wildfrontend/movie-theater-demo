@@ -8,7 +8,7 @@ import {
 } from '@/apis/movies/query-options';
 import { getMovieDetailBySSR } from '@/apis/movies/server';
 import MovieModalPage from '@/components/movies/detail/modal-page';
-import { getQueryClient } from '@/utils/react-query';
+import { getQueryClient } from '@/utils/global/react-query';
 
 type Props = {
   params: Promise<{ movieId: string }>;

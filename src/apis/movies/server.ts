@@ -1,5 +1,5 @@
 import { GetMovieDetailResponse } from '@/types/apis/movies';
-import serverFetch from '@/utils/fetch';
+import serverFetch from '@/utils/global/fetch';
 
 export const getMovieDetailBySSR = async (movieId: PathParamId) => {
   try {

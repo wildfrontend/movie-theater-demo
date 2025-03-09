@@ -6,7 +6,7 @@ import { watchlistQueryOptions } from '@/apis/user/query-options';
 import Watchlist from '@/components/movies/movies/watchlist';
 import WatchlistSkeleton from '@/components/movies/movies/watchlist/skeleton';
 import PlaySomethingSection from '@/components/movies/random-spin';
-import { getQueryClient } from '@/utils/react-query';
+import { getQueryClient } from '@/utils/global/react-query';
 
 export const metadata: Metadata = {
   title: 'Watchlist',

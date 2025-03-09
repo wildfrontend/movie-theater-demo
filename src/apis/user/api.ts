@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { GetWatchlistQueryParams } from '@/types/apis/user';
-import axios from '@/utils/axios';
+import axios from '@/utils/global/axios';
 
 import { watchlistQueryOptions } from './query-options';
 
