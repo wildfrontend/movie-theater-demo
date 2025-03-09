@@ -12,17 +12,15 @@ import React from 'react';
 
 import { MovieItem } from '@/types/apis/movies';
 import { generateMovieHerf } from '@/utils/global/link';
+import sizes from '@/utils/image/sizes';
+import tmdbLoader from '@/utils/image/tmdb';
+
+const defaultImg = 'https://fakeimg.pl/300x169';
 
 const MovieCard: React.FC<{ item: MovieItem }> = ({ item }) => {
   const searchParams = useSearchParams();
   return (
-    <Card
-      sx={{
-        width: '360px',
-        aspectRatio: 16 / 9,
-        position: 'relative',
-      }}
-    >
+    <Card>
       <CardActionArea
         LinkComponent={Link}
         {...{
@@ -34,7 +32,7 @@ const MovieCard: React.FC<{ item: MovieItem }> = ({ item }) => {
       >
         <CardMedia
           sx={{
-            width: '360px',
+            width: '100%',
             aspectRatio: 16 / 9,
             position: 'relative',
           }}
@@ -42,8 +40,10 @@ const MovieCard: React.FC<{ item: MovieItem }> = ({ item }) => {
           <Image
             alt={item.title}
             fill
-            src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
-            unoptimized
+            onError={(e) => (e.currentTarget.src = defaultImg)}
+            src={item.backdrop_path ?? ''}
+            sizes={sizes('30vw', '400px')}
+            loader={tmdbLoader}
           />
         </CardMedia>
         <Box

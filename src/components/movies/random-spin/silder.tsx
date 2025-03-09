@@ -112,7 +112,7 @@ const MovieSlider: React.FC = () => {
           width: '100%',
           overflow: 'hidden',
           ['.swiper-slide']: {
-            width: '360px',
+            width: { xs: "320px", md: '360px' },
           },
         }}
       >

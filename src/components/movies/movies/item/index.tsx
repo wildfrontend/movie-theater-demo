@@ -4,12 +4,12 @@ import { Card, CardActionArea, CardMedia } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import React, { useState } from 'react';
+import React from 'react';
 
 import type { SearchMovieItem } from '@/types/apis/movies';
 import { generateMovieHerf } from '@/utils/global/link';
 import sizes from '@/utils/image/sizes';
-import { tmdbPosterLoader } from '@/utils/image/tmdb';
+import tmdbLoader from '@/utils/image/tmdb';
 
 const defaultImg = 'https://fakeimg.pl/154x220';
 
@@ -42,7 +42,7 @@ const MovieListItem: React.FC<{
               // screenwidth * 0.3
               sizes={sizes('30vw', '300px')}
               src={movie.poster_path ?? ''}
-              loader={tmdbPosterLoader}
+              loader={tmdbLoader}
             />
           </CardMedia>
         </CardActionArea>
