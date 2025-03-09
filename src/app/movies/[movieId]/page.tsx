@@ -35,14 +35,12 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  // read route params
-  const { movieId } = await params;
 
-  // fetch data
+  const { movieId } = await params;
   const movie = await getMovieDetailBySSR(movieId);
 
-  // optionally access and extend (rather than replace) parent metadata
   let previousImages = undefined;
+  
   if (movie?.backdrop_path) {
     previousImages = {
       url: `https://image.tmdb.org/t/p/w780${movie?.backdrop_path}`,

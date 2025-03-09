@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Movie Theater Demo
 
-## Getting Started
+本文件說明 Movie Theater Demo 應用程式的設定與使用方式。
 
-First, run the development server:
+## Local Development
+
+To run the demo locally:
+
+### Install Dependencies:
 
 ```bash
+npm install
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Access Application:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open your web browser and navigate to http://localhost:3000.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Web Paths
 
-## Learn More
+應用程式提供以下路由：
 
-To learn more about Next.js, take a look at the following resources:
+- Homepage - 首頁
+- Movie Detail - 電影詳細資訊
+- Watchlist - 觀看清單
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### **Homepage (首頁)**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 採用 **React Query 預先擷取（prefetch）機制**，在伺服器端提前獲取資料，減少瀏覽器端的載入時間。
+- 若使用者尚未進行搜尋，則預設顯示 **熱門電影列表**，提供可瀏覽的內容。
 
-## Deploy on Vercel
+### **Movie Detail （電影詳細資訊）**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- 使用 Next.js [Intercepting Routes](https://nextjs.org/docs/app/building-your-application/routing/intercepting-routes) 與 [Parallel Routes](https://nextjs.org/docs/app/building-your-application/routing/parallel-routes) **實作 `Modal Route`**，提升使用者的瀏覽體驗。
+- 此設計同時讓 **電影詳細頁支援 SSR**，可在伺服器端提前獲取電影詳細資訊，進一步優化瀏覽器效能。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### **Watchlist（觀看清單）**
+
+- 介面與首頁的 **無限滾動列表** 一致，並提供相同的操作體驗。
+- 透過 **`Swiper.js`** 實現 **隨機選片功能**，讓使用者能夠以類似拉霸的方式隨機選擇電影。
+
