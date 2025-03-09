@@ -29,7 +29,9 @@ Open your web browser and navigate to http://localhost:3000.
 ### **Homepage (首頁)**
 
 - 採用 **React Query 預先擷取（prefetch）機制**，在伺服器端提前獲取資料，減少瀏覽器端的載入時間。
+  - 載入頁面時，省去電影清單載入時間，可提前在入圖片資源，提高頁面的LCP
 - 若使用者尚未進行搜尋，則預設顯示 **熱門電影列表**，提供可瀏覽的內容。
+
 
 ### **Movie Detail （電影詳細資訊）**
 
