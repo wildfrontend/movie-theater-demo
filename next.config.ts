@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
     TMDB_API_KEY: 'b26840ccf31897a32a84bfe1fdffdd9a',
   },
   images: {
+    deviceSizes: [375, 430, 640, 768, 1024, 1200],
     remotePatterns: [
       {
         hostname: 'image.tmdb.org',

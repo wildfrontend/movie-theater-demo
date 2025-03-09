@@ -8,6 +8,8 @@ import React, { useState } from 'react';
 
 import type { SearchMovieItem } from '@/types/apis/movies';
 import { generateMovieHerf } from '@/utils/global/link';
+import sizes from '@/utils/image/sizes';
+import { tmdbPosterLoader } from '@/utils/image/tmdb';
 
 const defaultImg = 'https://fakeimg.pl/154x220';
 
@@ -16,7 +18,6 @@ const MovieListItem: React.FC<{
   listCount: number;
 }> = ({ movie, listCount }) => {
   const searchParams = useSearchParams();
-  const [imageError, setImageError] = useState(false);
   return (
     <>
       <Card>
@@ -36,14 +37,12 @@ const MovieListItem: React.FC<{
               alt={movie.title}
               fill
               loading={listCount && listCount < 5 ? 'eager' : 'lazy'}
-              onError={() => setImageError(true)}
+              onError={(e) => (e.currentTarget.src = defaultImg)}
               priority={listCount < 5}
-              src={
-                imageError || !movie.poster_path
-                  ? defaultImg
-                  : `https://image.tmdb.org/t/p/w300${movie.poster_path}`
-              }
-              unoptimized
+              // screenwidth * 0.3
+              sizes={sizes('30vw', '300px')}
+              src={movie.poster_path ?? ''}
+              loader={tmdbPosterLoader}
             />
           </CardMedia>
         </CardActionArea>
