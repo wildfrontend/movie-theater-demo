@@ -60,7 +60,6 @@ const SearchResults: React.FC = () => {
 
   const { sortBy, setNewestSort, setOldestSort } = useSortBy();
 
-  //https://chatgpt.com/c/67c81d1d-0134-8012-8328-a3bf3052c66f
   const movies = useMemo(() => {
     const results = data?.pages?.flatMap((group) => group?.results) ?? [];
     const sortedResults = [...results].sort((a, b) => {
