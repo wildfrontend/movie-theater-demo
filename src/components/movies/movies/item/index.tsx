@@ -35,12 +35,12 @@ const MovieListItem: React.FC<{
             <Image
               alt={movie.title}
               fill
-              loader={tmdbLoader}
+              loader={movie.poster_path ? tmdbLoader : undefined}
               loading={listCount && listCount < 5 ? 'eager' : 'lazy'}
               onError={(e) => (e.currentTarget.src = defaultImg)}
               priority={listCount < 5}
               sizes={`(max-width: 600px) 20vw, 1024w`}
-              src={movie.poster_path ?? ''}
+              src={movie.poster_path ?? defaultImg}
             />
           </CardMedia>
         </CardActionArea>

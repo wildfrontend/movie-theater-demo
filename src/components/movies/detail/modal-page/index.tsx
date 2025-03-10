@@ -61,6 +61,13 @@ const MovieModalPage: React.FC = () => {
           height: 'auto',
         },
       }}
+      slotProps={{
+        paper: {
+          sx: {
+            width: "100%"
+          }
+        }
+      }}
     >
       <IconButton
         onClick={onClose}
@@ -75,7 +82,7 @@ const MovieModalPage: React.FC = () => {
         <CloseIcon />
       </IconButton>
       <MovieHeadline />
-      <DialogContent>
+      <DialogContent >
         <Stack spacing="16px">
           <MovieTitle />
           <MovieAttribute />

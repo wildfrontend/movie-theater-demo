@@ -39,10 +39,10 @@ const MovieCard: React.FC<{ item: MovieItem }> = ({ item }) => {
           <Image
             alt={item.title}
             fill
-            loader={tmdbRandomLoader}
+            loader={item.backdrop_path ? tmdbRandomLoader : undefined}
             onError={(e) => (e.currentTarget.src = defaultImg)}
             sizes={`(max-width: 600px) 100vw, 1024w`}
-            src={item.backdrop_path ?? ''}
+            src={item.backdrop_path ?? defaultImg}
           />
         </CardMedia>
         <Box
