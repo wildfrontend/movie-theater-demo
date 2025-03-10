@@ -18,9 +18,9 @@ import {
 } from '@/apis/movies/query-options';
 import { getMovieDetailBySSR } from '@/apis/movies/server';
 import MovieCredits from '@/components/movies/detail/credits';
+import MovieHeadline from '@/components/movies/detail/headline';
 import MovieAttribute from '@/components/movies/detail/main/attributes';
 import MovieGenres from '@/components/movies/detail/main/genres';
-import MovieHeadline from '@/components/movies/detail/main/headline';
 import MovieOverview from '@/components/movies/detail/main/overview';
 import ScrollTop from '@/components/movies/detail/main/scroll-top';
 import MovieStatus from '@/components/movies/detail/main/status';

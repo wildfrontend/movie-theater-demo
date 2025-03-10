@@ -17,9 +17,9 @@ import React from 'react';
 import { InView } from 'react-intersection-observer';
 
 import MovieCreditsSkeleton from '@/components/movies/detail/credits/skeleton';
+import MovieHeadline from '@/components/movies/detail/headline';
 import MovieAttribute from '@/components/movies/detail/main/attributes';
 import MovieGenres from '@/components/movies/detail/main/genres';
-import MovieHeadline from '@/components/movies/detail/main/headline';
 import MovieOverview from '@/components/movies/detail/main/overview';
 import MovieStatus from '@/components/movies/detail/main/status';
 import MovieTitle from '@/components/movies/detail/main/title';
