@@ -89,7 +89,7 @@ const MovieModalPage: React.FC = () => {
             {({ inView, ref, entry }) => {
               return (
                 <>
-                  <Typography ref={ref} fontWeight="bold" variant="h5">
+                  <Typography fontWeight="bold" ref={ref} variant="h5">
                     演出
                   </Typography>
                   {inView ? <MovieCredits /> : <></>}
@@ -101,7 +101,7 @@ const MovieModalPage: React.FC = () => {
             {({ inView, ref, entry }) => {
               return (
                 <>
-                  <Typography ref={ref} fontWeight="bold" variant="h5">
+                  <Typography fontWeight="bold" ref={ref} variant="h5">
                     評論
                   </Typography>
                   {inView ? <MovieReviews /> : <></>}

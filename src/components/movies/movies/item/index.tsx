@@ -8,7 +8,6 @@ import React from 'react';
 
 import type { SearchMovieItem } from '@/types/apis/movies';
 import { generateMovieHerf } from '@/utils/global/link';
-import sizes from '@/utils/image/sizes';
 import tmdbLoader from '@/utils/image/tmdb';
 
 const defaultImg = 'https://fakeimg.pl/154x220';
@@ -36,13 +35,12 @@ const MovieListItem: React.FC<{
             <Image
               alt={movie.title}
               fill
+              loader={tmdbLoader}
               loading={listCount && listCount < 5 ? 'eager' : 'lazy'}
               onError={(e) => (e.currentTarget.src = defaultImg)}
               priority={listCount < 5}
-              // screenwidth * 0.3
-              sizes={sizes('30vw', '300px')}
+              sizes={`(max-width: 600px) 20vw, 1024w`}
               src={movie.poster_path ?? ''}
-              loader={tmdbLoader}
             />
           </CardMedia>
         </CardActionArea>

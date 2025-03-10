@@ -22,14 +22,14 @@ const MovieBackdrop: React.FC<{ alt?: string; url?: string | null }> = ({
     <Image
       alt={alt ?? 'noalt'}
       fill
+      loader={tmdbBackdropLoader}
       loading="eager"
       onError={(e) => {
         e.currentTarget.src = defaultImg;
       }}
-      src={url ?? ''}
       sizes={sizes('60vw', '780px')}
+      src={url ?? ''}
       style={{ objectFit: 'cover' }}
-      loader={tmdbBackdropLoader}
     />
   );
 };

@@ -12,8 +12,7 @@ import React from 'react';
 
 import { MovieItem } from '@/types/apis/movies';
 import { generateMovieHerf } from '@/utils/global/link';
-import sizes from '@/utils/image/sizes';
-import tmdbLoader from '@/utils/image/tmdb';
+import { tmdbRandomLoader } from '@/utils/image/tmdb';
 
 const defaultImg = 'https://fakeimg.pl/300x169';
 
@@ -40,10 +39,10 @@ const MovieCard: React.FC<{ item: MovieItem }> = ({ item }) => {
           <Image
             alt={item.title}
             fill
+            loader={tmdbRandomLoader}
             onError={(e) => (e.currentTarget.src = defaultImg)}
+            sizes={`(max-width: 600px) 100vw, 1024w`}
             src={item.backdrop_path ?? ''}
-            sizes={sizes('30vw', '400px')}
-            loader={tmdbLoader}
           />
         </CardMedia>
         <Box
