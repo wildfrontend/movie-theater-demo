@@ -1,4 +1,5 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import type { PropsWithChildren } from 'react';
 import React from 'react';
@@ -34,6 +35,7 @@ const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
             </MuiThemeProvider>
           </AppRouterCacheProvider>
         </ReactQueryProvider>
+        <SpeedInsights />
       </body>
     </html>
   );

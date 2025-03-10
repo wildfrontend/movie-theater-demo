@@ -56,17 +56,17 @@ const MovieModalPage: React.FC = () => {
       onClose={onClose}
       open
       scroll="body"
+      slotProps={{
+        paper: {
+          sx: {
+            width: '100%',
+          },
+        },
+      }}
       sx={{
         [`.${dialogClasses.container}:after`]: {
           height: 'auto',
         },
-      }}
-      slotProps={{
-        paper: {
-          sx: {
-            width: "100%"
-          }
-        }
       }}
     >
       <IconButton
@@ -82,7 +82,7 @@ const MovieModalPage: React.FC = () => {
         <CloseIcon />
       </IconButton>
       <MovieHeadline />
-      <DialogContent >
+      <DialogContent>
         <Stack spacing="16px">
           <MovieTitle />
           <MovieAttribute />
