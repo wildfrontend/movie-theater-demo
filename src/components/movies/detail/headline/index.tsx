@@ -7,14 +7,8 @@ import { useFetchMovieVideos } from '@/apis/movies/api';
 
 import { useMovieDetail } from '../hooks/detail';
 import AddWatchlist from './add-watchlist';
+import YouTubeEmbed from './youtube-embed';
 
-// 動態導入 YouTubeEmbed 和 MovieBackdrop
-const YouTubeEmbed = dynamic(() => import('./youtube-embed'), {
-  ssr: false,
-  loading: () => {
-    return <Skeleton sx={{ aspectRatio: '780 / 439', transform: 'initial' }} />;
-  },
-});
 const MovieBackdrop = dynamic(() => import('./backdrop'), {
   loading: () => {
     return <Skeleton sx={{ aspectRatio: '780 / 439', transform: 'initial' }} />;
