@@ -36,7 +36,7 @@ npm run dev
 
 - 使用 Next.js Intercepting Routes 與 Parallel Routes **實作 `Modal Route`**，提升使用者的瀏覽體驗。
 - 此設計同時讓 **電影詳細頁支援 SSR（Server-Side Rendering）**，可在伺服器端提前獲取電影詳細資訊，進一步優化瀏覽器效能。
-- `Modal Route` 支援拖曳關閉，透過 `framer-motion` 提供自然順暢的動畫效果，提升操作手感。
+- ~`Modal Route` 支援拖曳關閉，透過 `framer-motion` 提供自然順暢的動畫效果，提升操作手感。~ 實際操作體驗不佳故刪除
 
 ### **觀看清單**
 

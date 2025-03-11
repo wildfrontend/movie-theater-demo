@@ -11,7 +11,6 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { PanInfo, motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import React, { ComponentProps } from 'react';
@@ -61,21 +60,6 @@ const MovieModalPage: React.FC = () => {
         paper: {
           sx: {
             width: '100%',
-            touchAction: 'none', // 避免與瀏覽器手勢衝突
-          },
-          component: motion.div,
-          drag: true,
-          dragConstraints: { left: 0, right: 0, top: 0, bottom: 0 },
-          // @ts-ignore
-          onDragEnd: (_, info: PanInfo) => {
-            const { offset } = info;
-            const threshold = 100; // 超過 100px 就關閉
-            if (
-              Math.abs(offset.x) > threshold ||
-              Math.abs(offset.y) > threshold
-            ) {
-              onClose();
-            }
           },
         },
       }}
