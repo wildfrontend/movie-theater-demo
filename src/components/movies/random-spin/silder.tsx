@@ -1,5 +1,11 @@
 import { Box, Button, Stack } from '@mui/material';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-coverflow';
@@ -23,50 +29,31 @@ const generateRandomMovies = (movies: MovieItem[], random: number) => {
 };
 
 const useControlSpin = () => {
-  const initialSpeed = 120;
-  const minSpeed = 540;
-  const maxSpeed = 1080;
-  const accelerationFactor = 0.8;
-  const decayFactor = 1.2;
-  const intervalDelay = 20;
-
-  const [speed, setSpeed] = useState(initialSpeed);
   const [autoplayEnabled, setAutoplayEnabled] = useState(true);
-  const [isAccelerating, setIsAccelerating] = useState(true);
   const [random, setRandom] = useState(Math.random());
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (!autoplayEnabled) return;
-
-    let currentSpeed = speed;
-    const interval = setInterval(() => {
-      if (isAccelerating) {
-        currentSpeed *= accelerationFactor;
-        if (currentSpeed <= minSpeed) {
-          setIsAccelerating(false);
-        }
-      } else {
-        currentSpeed *= decayFactor;
-        if (currentSpeed >= maxSpeed) {
-          setAutoplayEnabled(false);
-          clearInterval(interval);
-          return;
-        }
+    if (autoplayEnabled) {
+      timeoutRef.current = setTimeout(() => {
+        setAutoplayEnabled(false);
+        timeoutRef.current = null;
+      }, 700);
+    }
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
       }
-      setSpeed(currentSpeed);
-    }, intervalDelay); // Use the adjusted interval delay
-
-    return () => clearInterval(interval);
-  }, [autoplayEnabled, speed, isAccelerating]);
+    };
+  }, [autoplayEnabled]);
 
   const restartSpin = useCallback(() => {
-    setSpeed(initialSpeed);
     setAutoplayEnabled(true);
-    setIsAccelerating(true);
     setRandom(Math.random());
   }, []);
 
-  return { speed, random, autoplayEnabled, restartSpin };
+  return { random, autoplayEnabled, restartSpin };
 };
 
 const SwiperControl: React.FC<{ enableAutoPlay: boolean }> = ({
@@ -94,7 +81,6 @@ const useRandomMovies = ({ random }: { random: number }) => {
       random
     );
   }, [data, random]);
-
   return {
     randomMovies,
     isFetching,
@@ -103,7 +89,7 @@ const useRandomMovies = ({ random }: { random: number }) => {
 };
 
 const MovieSlider: React.FC = () => {
-  const { speed, random, autoplayEnabled, restartSpin } = useControlSpin();
+  const { random, autoplayEnabled, restartSpin } = useControlSpin();
   const { randomMovies } = useRandomMovies({ random });
   return (
     <Stack alignItems="center" direction="column" spacing="16px" width="100%">
@@ -135,7 +121,7 @@ const MovieSlider: React.FC = () => {
           loop
           modules={[Autoplay, EffectCoverflow, FreeMode]}
           slidesPerView="auto"
-          speed={speed}
+          speed={30}
         >
           <SwiperControl enableAutoPlay={autoplayEnabled} />
           {randomMovies.map((item, i) => {
