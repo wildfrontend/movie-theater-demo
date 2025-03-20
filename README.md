@@ -91,6 +91,9 @@ const movies = useMemo(() => {
 
 ## 隨機播放設計 (deprecated)
 
+<details>
+<summary>已棄用設計</summary>
+
 - 從待看清單中隨機挑選 10 部電影，並顯示在 **Swiper.js** 上，實現轉盤效果。
 - 轉盤的控制邏輯透過 **Swiper.js** 的 **autoplay** 控制頻率，並使用 **freemod** 提供的平滑滑動效果。
 - 使用自定義 Hook 控制動畫，讓轉盤從一開始的加速到減速，達成順暢的轉盤動畫效果。用戶可以選擇是否重新轉盤。
@@ -143,8 +146,10 @@ const useControlSpin = () => {
   return { speed, random, autoplayEnabled, restartSpin };
 };
 ```
+</details>
 
 ## 隨機播放設計 v2
+
 - 由於 speed 高頻率變動會導致 React 頻繁重新渲染，影響效能，間接增加 INP 延遲，因此改用 setTimeout 來關閉自動播放。
 - 每次旋轉時都會重新挑選影片，因此只需執行轉盤動畫，無需隨機調整轉盤時間。
 - 簡化程式碼，提高可讀性與效能。
@@ -154,7 +159,7 @@ const useControlSpin = () => {
 const useControlSpin = () => {
   const [autoplayEnabled, setAutoplayEnabled] = useState(true);
   const [random, setRandom] = useState(Math.random());
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = (useRef < NodeJS.Timeout) | (null > null);
 
   useEffect(() => {
     if (autoplayEnabled) {
