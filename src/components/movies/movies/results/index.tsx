@@ -61,17 +61,19 @@ const SearchResults: React.FC = () => {
   const { sortBy, setNewestSort, setOldestSort } = useSortBy();
 
   const movies = useMemo(() => {
-    const results = data?.pages?.flatMap((group) => group?.results) ?? [];
-    const sortedResults = [...results].sort((a, b) => {
+    if (!data?.pages) return [];
+    const results = data.pages.flatMap((group) => group?.results || []);
+    return results.sort((a, b) => {
+      const dateA = a.release_date ? new Date(a.release_date).getTime() : 0;
+      const dateB = b.release_date ? new Date(b.release_date).getTime() : 0;
       if (sortBy === SearchMoviesSortType.oldest) {
-        return dayjs(a.release_date).unix() - dayjs(b.release_date).unix();
+        return dateA - dateB;
       }
       if (sortBy === SearchMoviesSortType.newest) {
-        return dayjs(b.release_date).unix() - dayjs(a.release_date).unix();
+        return dateB - dateA;
       }
       return 0;
     });
-    return sortedResults;
   }, [data, sortBy]);
 
   let listCount = 1;

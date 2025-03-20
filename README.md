@@ -72,20 +72,25 @@ npm run dev
 - **背景**：在原本的情況下，當有一個電影清單並需要排序時，每次重新渲染或更新清單時，都會重新排序所有電影資料。這樣會導致不必要的性能浪費，尤其當資料量較大時，排序操作可能會影響頁面流暢度。
 - **問題**：每次渲染都進行排序，可能會導致不必要的計算開銷，影響效能。
 - **解決方案**：使用 **useMemo** 來計算排序結果，並且只有當 **sortBy**（排序條件）發生變化時才重新計算排序。這樣可以避免每次渲染時都對電影列表進行排序，只有當 **sortBy** 變動時才會重新計算並更新排序，提升效能。
+- **2025/03/20**:
+  - 只在 `data.pages` 變更時 重新計算 `results`，避免 `data`物件變更時觸發不必要的運算。
+  - 避免 `release_date` 重複轉換，減少 `new Date().getTime()` 在排序過程中的多次調用。
 
 ```jsx
 const movies = useMemo(() => {
-  const results = data?.pages?.flatMap((group) => group?.results) ?? [];
-  const sortedResults = [...results].sort((a, b) => {
+  if (!data?.pages) return [];
+  const results = data.pages.flatMap((group) => group?.results || []);
+  return results.sort((a, b) => {
+    const dateA = a.release_date ? new Date(a.release_date).getTime() : 0;
+    const dateB = b.release_date ? new Date(b.release_date).getTime() : 0;
     if (sortBy === SearchMoviesSortType.oldest) {
-      return dayjs(a.release_date).unix() - dayjs(b.release_date).unix();
+      return dateA - dateB;
     }
     if (sortBy === SearchMoviesSortType.newest) {
-      return dayjs(b.release_date).unix() - dayjs(a.release_date).unix();
+      return dateB - dateA;
     }
     return 0;
   });
-  return sortedResults;
 }, [data, sortBy]);
 ```
 
@@ -146,6 +151,15 @@ const useControlSpin = () => {
   return { speed, random, autoplayEnabled, restartSpin };
 };
 ```
+
+### 說明：
+
+- **加速與減速**：這段代碼的核心是模擬轉盤的加速與減速效果。轉盤會從一開始的加速到達最大速度，然後逐漸減速並停止。
+- **`speed` 狀態控制轉盤速度**：`speed` 會在加速過程中不斷增大，然後進入減速階段，直到停止。這個過程會根據設置的 **accelerationFactor**（加速因子）和 **decayFactor**（減速因子）進行調整。
+- **`random` 狀態觸發重啟**：每當用戶選擇重新轉盤時，會重置 `random` 狀態，觸發 **useEffect** 中的邏輯，重新開始加速過程。
+- **`restartSpin` 方法**：提供了重新啟動轉盤的功能，用戶可以隨時點擊按鈕重新啟動轉盤。
+- 每次轉動會重新從現有的待看清單取得電影。
+
 </details>
 
 ## 隨機播放設計 v2
@@ -184,11 +198,3 @@ const useControlSpin = () => {
   return { random, autoplayEnabled, restartSpin };
 };
 ```
-
-### 說明：
-
-- **加速與減速**：這段代碼的核心是模擬轉盤的加速與減速效果。轉盤會從一開始的加速到達最大速度，然後逐漸減速並停止。
-- **`speed` 狀態控制轉盤速度**：`speed` 會在加速過程中不斷增大，然後進入減速階段，直到停止。這個過程會根據設置的 **accelerationFactor**（加速因子）和 **decayFactor**（減速因子）進行調整。
-- **`random` 狀態觸發重啟**：每當用戶選擇重新轉盤時，會重置 `random` 狀態，觸發 **useEffect** 中的邏輯，重新開始加速過程。
-- **`restartSpin` 方法**：提供了重新啟動轉盤的功能，用戶可以隨時點擊按鈕重新啟動轉盤。
-- 每次轉動會重新從現有的待看清單取得電影。
